@@ -28,7 +28,7 @@ In the terminal, run the following command to install project dependencies:
 npm install
 ```
 ### Create Database
-- Make sure you have a database named cuisineconnectdb created in your database management system (e.g., MySQL, PostgreSQL).
+- Make sure you have a database named cuisineconnectdb created in your database management system (e.g., MySQL).
 
 ### Run the Project
 To start the project, run the following command:
