@@ -11,7 +11,7 @@ import About from "./components/About";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import UserDashboard from "./components/UserDashboard";
-
+import ViewRecipe from "./components/View Recipe";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -24,7 +24,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/dashboard" element={<UserDashboard isLoggedIn={isLoggedIn}/>} />
+          <Route path="/dashboard" element={<UserDashboard isLoggedIn={isLoggedIn} />} />
+          <Route path="/view-recipes" element={<ViewRecipe isLoggedIn={isLoggedIn}/>} />
         </Routes>
       </div>
       <Footer />
