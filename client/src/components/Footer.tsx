@@ -4,9 +4,9 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="footer mt-auto py-3 bg-dark text-light">
+    <footer className="footer fixed-bottom bg-dark text-white py-4">
       <div className="container-fluid">
-        <span className="text-muted">Cuisine Connect &copy; {new Date().getFullYear()}</span>
+        <span className="text-white">Cuisine Connect &copy; {new Date().getFullYear()}</span>
       </div>
     </footer>
   );

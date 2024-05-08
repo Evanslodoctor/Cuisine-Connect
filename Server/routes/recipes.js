@@ -8,5 +8,7 @@ router.get('/', RecipeController.getAllRecipes);
 router.get('/:id', RecipeController.getRecipeById);
 router.put('/:id', RecipeController.updateRecipeById);
 router.delete('/:id', RecipeController.deleteRecipeById);
+// Define route for searching recipes
+router.get('/search', RecipeController.searchRecipes);
 
 module.exports = router;
