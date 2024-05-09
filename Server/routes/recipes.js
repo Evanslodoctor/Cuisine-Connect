@@ -10,5 +10,9 @@ router.put('/:id', RecipeController.updateRecipeById);
 router.delete('/:id', RecipeController.deleteRecipeById);
 // Define route for searching recipes
 router.get('/search', RecipeController.searchRecipes);
+// Route for rating a recipe
+router.post("/:id/rate", RecipeController.rateRecipe);
+// Route for adding a recipe to favorites
+router.post("/:id/favorite", RecipeController.addToFavorites);
 
 module.exports = router;

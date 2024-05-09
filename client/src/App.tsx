@@ -11,12 +11,12 @@ import About from "./components/About";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import UserDashboard from "./components/UserDashboard";
-import ViewRecipe from "./components/View Recipe";
+import ViewRecipe from "./components/ViewRecipe";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <>
+    <> <div className="MainBody">
       <Header isLoggedIn={isLoggedIn} />
       <div className="container">
         <Routes>
@@ -25,8 +25,10 @@ function App() {
           <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/dashboard" element={<UserDashboard isLoggedIn={isLoggedIn} />} />
-          <Route path="/view-recipes" element={<ViewRecipe isLoggedIn={isLoggedIn}/>} />
+          <Route path="/recipe/:recipeID" element={<ViewRecipe isLoggedIn={isLoggedIn} />} />
+
         </Routes>
+      </div>
       </div>
       <Footer />
     </>

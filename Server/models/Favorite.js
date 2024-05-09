@@ -13,5 +13,21 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  // Define associations
+  Favorite.associate = (models) => {
+    // A Favorite belongs to a User
+    Favorite.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+    // A Favorite belongs to a Recipe
+    Favorite.belongsTo(models.Recipe, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
+
   return Favorite;
 };

@@ -71,7 +71,7 @@ const UserDashboard = ({ isLoggedIn }) => {
               <Card.Body>
                 <Card.Title>{recipe.Title}</Card.Title>
                 <Card.Text>Average Rating: {recipe.AverageRating}</Card.Text>
-                <Button variant="primary" onClick={() => navigate(`/view-recipes /${recipe.RecipeID}`)}>View Recipe</Button>
+                <Button variant="primary" onClick={() => navigate(`/recipe/${recipe.RecipeID}`)}>View Recipe</Button>
               </Card.Body>
             </Card>
           </Col>
