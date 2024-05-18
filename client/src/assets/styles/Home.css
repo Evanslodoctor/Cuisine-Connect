@@ -1,0 +1,34 @@
+/* Home.css */
+.home-container {
+ 
+}
+
+.carousel-item {
+  height: 100vh;
+}
+
+.carousel-background {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-text {
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5); /* Optional: Adds a semi-transparent background to the text */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.carousel-text h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.carousel-text p {
+  font-size: 1.5em;
+}

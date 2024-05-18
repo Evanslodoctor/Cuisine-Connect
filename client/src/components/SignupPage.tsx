@@ -36,7 +36,7 @@ const SignupPage = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 signup_page">
       <h2 className="mb-4">Signup</h2>
       <Form>
         <Form.Group controlId="formBasicUsername">

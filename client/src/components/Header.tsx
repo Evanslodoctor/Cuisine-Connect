@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Navbar, Nav, Button } from "react-bootstrap";
 
 const Header = () => {
@@ -22,24 +22,24 @@ const Header = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/">
+          <Nav.Link as={NavLink} to="/" exact activeClassName="active-link">
             Home
           </Nav.Link>
           {isLoggedIn ? (
             <>
-              <Nav.Link as={Link} to="/add-recipe">
+              <Nav.Link as={NavLink} to="/add-recipe" activeClassName="active-link">
                 Add Recipe
               </Nav.Link>
-              <Nav.Link as={Link} to="/view-recipes">
+              <Nav.Link as={NavLink} to="/view-recipes" activeClassName="active-link">
                 View Recipes
               </Nav.Link>
             </>
           ) : (
             <>
-              <Nav.Link as={Link} to="/login">
+              <Nav.Link as={NavLink} to="/login" activeClassName="active-link">
                 Login
               </Nav.Link>
-              <Nav.Link as={Link} to="/signup">
+              <Nav.Link as={NavLink} to="/signup" activeClassName="active-link">
                 Signup
               </Nav.Link>
             </>

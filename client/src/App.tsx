@@ -1,5 +1,3 @@
-// App.js
-
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,26 +10,37 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import UserDashboard from "./components/UserDashboard";
 import ViewRecipe from "./components/ViewRecipe";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <> <div className="MainBody">
+    <div className="app-container">
+      <div className="background-image">
       <Header isLoggedIn={isLoggedIn} />
-      <div className="container">
+      <div className="main-body">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
+          <Route
+            path="/login"
+            element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
+          />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/dashboard" element={<UserDashboard isLoggedIn={isLoggedIn} />} />
-          <Route path="/recipe/:recipeID" element={<ViewRecipe isLoggedIn={isLoggedIn} />} />
-
+          <Route
+            path="/dashboard"
+            element={<UserDashboard isLoggedIn={isLoggedIn} />}
+          />
+          <Route
+            path="/recipe/:recipeID"
+            element={<ViewRecipe isLoggedIn={isLoggedIn} />}
+          />
         </Routes>
-      </div>
-      </div>
-      <Footer />
-    </>
+        </div>
+        <Footer />
+        </div>
+      
+    </div>
   );
 }
 
