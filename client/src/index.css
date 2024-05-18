@@ -23,7 +23,7 @@ a:hover {
 body {
   margin: 0;
   place-items: center;
-  min-width: 100vh;
+  min-width: 100%;
 }
 
 h1 {
