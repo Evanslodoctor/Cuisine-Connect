@@ -15,9 +15,9 @@ const Header = () => {
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="fixed-top">
+    <Navbar  variant="dark" expand="lg" className="fixed-top navbar">
       <Navbar.Brand as={Link} to="/">
-        Cuisine Connect
+      Flavor Fusion
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

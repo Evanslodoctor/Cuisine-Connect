@@ -97,7 +97,7 @@ const ViewRecipe = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 viewrecipe">
       {recipe ? (
         <>
           <Row>

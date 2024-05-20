@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Carousel, Container, Row, Col } from "react-bootstrap";
+import { Carousel, Container, Row, Col, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SignupPage from "./SignupPage"; // Import your signup page component
 
@@ -42,6 +42,9 @@ const Home = () => {
               <div className="carousel-text text-center">
                 <h1>Welcome to Cuisine Connect!</h1>
                 <p>Share and discover amazing recipes.</p>
+                <Button as="a" href="/signup" variant="primary">
+                  Register Now
+                </Button>
               </div>
             </div>
           </Carousel.Item>
@@ -55,6 +58,9 @@ const Home = () => {
               <div className="carousel-text text-center">
                 <h1>Explore New Recipes</h1>
                 <p>Find recipes that inspire you to cook.</p>
+                <Button as="a" href="/signup" variant="primary">
+                  Register Now
+                </Button>
               </div>
             </div>
           </Carousel.Item>
@@ -68,6 +74,9 @@ const Home = () => {
               <div className="carousel-text text-center">
                 <h1>Join Our Community</h1>
                 <p>Connect with other food enthusiasts.</p>
+                <Button as="a" href="/signup" variant="primary">
+                  Register Now
+                </Button>
               </div>
             </div>
           </Carousel.Item>

@@ -45,7 +45,7 @@ const UserDashboard = ({ isLoggedIn }) => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 darshbord">
       <Row>
         <Col>
           <h2>User Dashboard</h2>
