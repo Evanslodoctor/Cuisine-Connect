@@ -32,3 +32,4 @@ app.listen(PORT, async () => {
     console.error('Error syncing database:', error);
   }
 });
+
