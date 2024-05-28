@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css"; // Import custom CSS for additional styles
 import Header from "./components/Header";
@@ -10,13 +10,22 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import UserDashboard from "./components/UserDashboard";
 import ViewRecipe from "./components/ViewRecipe";
+import AddRecipe from "./components/AddRecipe";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   return (
-    <div className="app-container">
-      <div className="background-image">
+    <div className="background-image">
       <Header isLoggedIn={isLoggedIn} />
       <div className="main-body">
         <Routes>
@@ -29,19 +38,27 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route
             path="/dashboard"
-            element={<UserDashboard isLoggedIn={isLoggedIn} />}
+            element={
+              isLoggedIn ? (
+                <UserDashboard isLoggedIn={isLoggedIn} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/recipe/:recipeID"
             element={<ViewRecipe isLoggedIn={isLoggedIn} />}
           />
+          <Route
+            path="/add-recipe"
+            element={isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />}
+          />
         </Routes>
-        </div>
-      
-        <Footer />
-        </div>
-      
+      </div>
+      <Footer />
     </div>
+    
   );
 }
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Container, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage: React.FC = ({ setIsLoggedIn }) => {
+const LoginPage = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -25,8 +25,9 @@ const LoginPage: React.FC = ({ setIsLoggedIn }) => {
       });
       // Handle successful login
       console.log("Login successful:", response.data);
-      // Store the token in local storage
+      // Store the token and user info in local storage
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user)); // Store the user object
       // Update the isLoggedIn state in the App component
       setIsLoggedIn(true);
       // Redirect to dashboard

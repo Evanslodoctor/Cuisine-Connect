@@ -1,4 +1,6 @@
+// models/Recipe.js
 const { Sequelize, DataTypes } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   const Recipe = sequelize.define("Recipe", {
     RecipeID: {
@@ -49,6 +51,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+
+  Recipe.associate = (models) => {
+    Recipe.belongsTo(models.User, {
+      foreignKey: {
+        name: "UserUserID", // Specify the name of the foreign key column
+        allowNull: false,
+        onDelete: "CASCADE",
+      },
+    });
+  };
 
   return Recipe;
 };

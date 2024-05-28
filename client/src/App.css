@@ -43,6 +43,7 @@
 }
 .text-white {
   text-align: center;
+  
 }
 
 /* navbar */
@@ -68,4 +69,40 @@
 .viewrecipe h2,
 .viewrecipe h3 {
   color: blue;
+}
+
+/* add recipe */
+.add-recipe-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  padding-bottom: 50px;
+  border-radius: 10px;
+ 
+}
+.ricipe_form{
+ 
+}
+
+@media (min-width: 768px) {
+  .form-group {
+    margin-bottom: 15px;
+  }
+}
+
+.form-group textarea {
+  resize: none;
+}
+
+.text-center {
+  margin-top: 20px;
+}
+
+button {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  button {
+    width: auto;
+  }
 }
