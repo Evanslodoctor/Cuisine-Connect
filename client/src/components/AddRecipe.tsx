@@ -9,11 +9,45 @@ const AddRecipe = () => {
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [instructions, setInstructions] = useState("");
-  const [cuisineType, setCuisineType] = useState("");
+  const [mealType, setMealType] = useState("");
+  const [customMealType, setCustomMealType] = useState("");
   const [dietaryTags, setDietaryTags] = useState("");
   const [difficultyLevel, setDifficultyLevel] = useState("easy");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const africanMeals = [
+    "Jollof Rice, Nigeria", "Bunny Chow, South Africa", "Tagine, Morocco", "Injera, Ethiopia",
+    "Bobotie, South Africa", "Piri Piri Chicken, Mozambique", "Suya, Nigeria", "Fufu, Ghana",
+    "Couscous, Algeria", "Chicken Muamba, Angola", "Sadza, Zimbabwe", "Nyama Choma, Kenya",
+    "Shakshuka, Tunisia", "Waakye, Ghana", "Sosaties, South Africa", "Biltong, South Africa",
+    "Chapati, Uganda", "Koshari, Egypt", "Moin Moin, Nigeria", "Braaibroodjies, South Africa",
+    "Potjiekos, South Africa", "Brochettes, Rwanda", "Matoke, Uganda", "Egusi Soup, Nigeria",
+    "Kachumbari, Kenya", "Gored Gored, Ethiopia", "Maafe, Senegal", "Samp and Beans, South Africa",
+    "Akara, Nigeria", "Pepper Soup, Nigeria", "Cachupa, Cape Verde", "Fried Plantains, Various",
+    "Ndolé, Cameroon", "Palm Nut Soup, Ghana", "Sambaza, Rwanda", "Tibs, Ethiopia",
+    "Thieboudienne, Senegal", "Moambe Chicken, Congo", "Chambo, Malawi", "Mofo Gasy, Madagascar",
+    "Ugali, Kenya", "Tilapia, Uganda", "Nyembwe Chicken, Gabon", "Matemba, Zimbabwe",
+    "Pilau, Tanzania", "Achombo, Cameroon", "Menemen, Egypt", "Mala Mogodu, South Africa",
+    "Kedjenou, Ivory Coast", "Alloco, Ivory Coast", "Kahawa, Tanzania", "Roasted Goat, Various",
+    "Catfish Pepper Soup, Nigeria", "Zigni, Eritrea", "Ful Medames, Sudan", "Mutura, Kenya",
+    "Githeri, Kenya", "Mugoyo, Kenya", "Sautéed Spinach, Kenya", "Nyama na Irio, Kenya",
+    "Boerewors, South Africa", "Pap en Vleis, South Africa", "Vetkoek, South Africa",
+    "Melktert, South Africa", "Malva Pudding, South Africa", "Amasi, South Africa",
+    "Peri Peri Prawns, Mozambique", "Kachumbari, Tanzania", "Machboos, Comoros",
+    "Yassa Chicken, Senegal", "Kuku Paka, Kenya", "Liboke ya Malangwa, Congo", "Mbongo Tchobi, Cameroon",
+    "Kik Alicha, Ethiopia", "Siga Tibs, Ethiopia", "Gomen, Ethiopia", "Misir Wot, Ethiopia",
+    "Ayamase, Nigeria", "Ogi, Nigeria", "Ikokore, Nigeria", "Edikang Ikong, Nigeria",
+    "Ofada Rice, Nigeria", "Amala and Ewedu, Nigeria", "Banga Soup, Nigeria", "Efo Riro, Nigeria",
+    "Ogbono Soup, Nigeria", "Oha Soup, Nigeria", "Gbegiri, Nigeria", "Bitterleaf Soup, Nigeria",
+    "Ata Din Din, Nigeria", "Ewa Agoyin, Nigeria", "Yam Porridge, Nigeria", "Isi Ewu, Nigeria",
+    "Ukodo, Nigeria", "Ugba, Nigeria", "Abacha, Nigeria", "Nsala Soup, Nigeria", "Kuli Kuli, Nigeria",
+    "Gari Foto, Ghana", "Banku and Tilapia, Ghana", "Kelewele, Ghana", "Kenkey, Ghana",
+    "Red Red, Ghana", "Tuo Zaafi, Ghana", "Nkatenkwan, Ghana", "Ampesi, Ghana",
+    "Kontomire Stew, Ghana", "Groundnut Soup, Ghana", "Eto, Ghana", "Agushi Stew, Ghana",
+    "Bofrot, Ghana", "Chinchinga, Ghana", "Fried Yams, Ghana", "Kyinkyinga, Ghana",
+    "Toubani, Benin", "Aloko, Benin", "Moyo, Benin", "Gboma Dessi, Benin", "Kokonte, Ghana",
+  ];
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -34,11 +68,11 @@ const AddRecipe = () => {
           Description: description,
           Ingredients: ingredients.split("\n"),
           Instructions: instructions,
-          CuisineType: cuisineType,
+          CuisineType: mealType || customMealType,
           DietaryTags: dietaryTags,
           DifficultyLevel: difficultyLevel,
           CreationDate: new Date(),
-          UserUserID: JSON.parse(localStorage.getItem("user")).UserID, // Assuming the user object is stored in localStorage
+          UserUserID: JSON.parse(localStorage.getItem("user")).UserID,
         },
         {
           headers: {
@@ -64,7 +98,7 @@ const AddRecipe = () => {
       <h1 className="text-center">Add New Recipe</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
-      <Form className="ricipe_form" onSubmit={handleSubmit}>
+      <Form className="recipe_form" onSubmit={handleSubmit}>
         <Row>
           <Col md={6}>
             <Form.Group controlId="title">
@@ -78,13 +112,26 @@ const AddRecipe = () => {
             </Form.Group>
           </Col>
           <Col md={6}>
-            <Form.Group controlId="cuisineType">
-              <Form.Label>Cuisine Type</Form.Label>
+            <Form.Group controlId="mealType">
+              <Form.Label>Meal Type</Form.Label>
+              <Form.Control
+                as="select"
+                value={mealType}
+                onChange={(e) => setMealType(e.target.value)}
+              >
+                <option value="">Select a meal type</option>
+                {africanMeals.map((meal) => (
+                  <option key={meal} value={meal}>
+                    {meal}
+                  </option>
+                ))}
+              </Form.Control>
               <Form.Control
                 type="text"
-                value={cuisineType}
-                onChange={(e) => setCuisineType(e.target.value)}
-                required
+                placeholder="Or enter a new meal type"
+                value={customMealType}
+                onChange={(e) => setCustomMealType(e.target.value)}
+                className="mt-2"
               />
             </Form.Group>
           </Col>
