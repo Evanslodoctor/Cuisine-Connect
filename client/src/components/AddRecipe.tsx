@@ -164,39 +164,59 @@ const AddRecipe = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="ingredients">
-          <Form.Label>Ingredients (one per line)</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            value={ingredients}
-            onChange={(e) => setIngredients(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="instructions">
-          <Form.Label>Instructions</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            value={instructions}
-            onChange={(e) => setInstructions(e.target.value)}
-            required
-          />
-        </Form.Group>
+        <Row>
+          <Col md={6}>
+            <Form.Group controlId="description">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                style={{ width: "100%" }}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group controlId="ingredients">
+              <Form.Label>Ingredients (one per line)</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={ingredients}
+                onChange={(e) => setIngredients(e.target.value)}
+                required
+                style={{ width: "100%" }}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <Form.Group controlId="instructions">
+              <Form.Label>Instructions</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={instructions}
+                onChange={(e) => setInstructions(e.target.value)}
+                required
+                style={{ width: "100%" }}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
         <div className="text-center">
           <Button variant="primary" type="submit" className="mt-3">
             Add Recipe
+          </Button>
+          <Button
+            variant="secondary"
+            className="mt-3 ml-3"
+            onClick={() => navigate("/update-recipe")}
+          >
+            Update Recipe
           </Button>
         </div>
       </Form>
