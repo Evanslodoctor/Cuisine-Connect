@@ -82,6 +82,7 @@ const AddRecipe = () => {
       );
       if (response && response.data) {
         setSuccess("Recipe added successfully!");
+        navigate("/uploadImage");
         setError("");
       } else {
         setError("Failed to add recipe. Please try again later.");
