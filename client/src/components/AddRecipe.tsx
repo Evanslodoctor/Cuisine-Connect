@@ -82,8 +82,9 @@ const AddRecipe = () => {
       );
       if (response && response.data) {
         setSuccess("Recipe added successfully!");
-        navigate("/uploadImage");
+        navigate("/upload-image");
         setError("");
+        navigate(`/upload-image/${response.data.recipeId}`);
       } else {
         setError("Failed to add recipe. Please try again later.");
         setSuccess("");
@@ -210,15 +211,9 @@ const AddRecipe = () => {
         </Row>
         <div className="text-center">
           <Button variant="primary" type="submit" className="mt-3">
-            Add Recipe
+            Next
           </Button>
-          <Button
-            variant="secondary"
-            className="mt-3 ml-3"
-            onClick={() => navigate("/update-recipe")}
-          >
-            Update Recipe
-          </Button>
+          
         </div>
       </Form>
     </Container>

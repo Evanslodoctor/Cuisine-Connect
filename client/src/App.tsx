@@ -11,7 +11,7 @@ import SignupPage from "./components/SignupPage";
 import UserDashboard from "./components/UserDashboard";
 import ViewRecipe from "./components/ViewRecipe";
 import AddRecipe from "./components/AddRecipe";
-
+import UploadImage from "./components/UploadImage";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
@@ -50,10 +50,12 @@ function App() {
             path="/recipe/:recipeID"
             element={<ViewRecipe isLoggedIn={isLoggedIn} />}
           />
+        
           <Route
             path="/add-recipe"
             element={isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />}
           />
+            <Route path="/upload-image/:recipeId" element={<UploadImage />} />
         </Routes>
       </div>
       <Footer />
