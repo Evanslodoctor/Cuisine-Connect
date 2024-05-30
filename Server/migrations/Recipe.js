@@ -1,20 +1,14 @@
-"use strict";
-const { DataTypes } = require("sequelize");
+'use strict';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn("recipes", "UserUserID", {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: "User", // Corrected model name to singular and capitalized
-        key: "UserID",
-      },
-      onDelete: "CASCADE",
+    await queryInterface.addColumn('Recipes', 'Image', {
+      type: Sequelize.STRING,
+      allowNull: true,
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn("recipes", "UserUserID");
-  },
+    await queryInterface.removeColumn('Recipes', 'Image');
+  }
 };

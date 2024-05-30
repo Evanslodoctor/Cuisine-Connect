@@ -1,4 +1,3 @@
-// models/Recipe.js
 const { Sequelize, DataTypes } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
@@ -49,6 +48,10 @@ module.exports = (sequelize, DataTypes) => {
     CreationDate: {
       type: DataTypes.DATE,
       allowNull: false,
+    },
+    Image: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   });
 
