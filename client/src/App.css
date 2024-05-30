@@ -106,3 +106,20 @@ button {
     width: auto;
   }
 }
+.image-upload-container {
+  position: relative;
+  display: inline-block;
+}
+
+.image-upload {
+  cursor: pointer;
+}
+
+.image-upload input[type="file"] {
+  display: none;
+}
+
+.image-upload .faPlusCircle {
+  font-size: 4rem;
+  color: #007bff;
+}

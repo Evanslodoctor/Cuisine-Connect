@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Form, Button, Alert, Row, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 const AddRecipe = () => {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ const AddRecipe = () => {
   const [difficultyLevel, setDifficultyLevel] = useState("easy");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [image, setImage] = useState(null);
 
   const africanMeals = [
     "Jollof Rice, Nigeria", "Bunny Chow, South Africa", "Tagine, Morocco", "Injera, Ethiopia",
@@ -56,27 +59,34 @@ const AddRecipe = () => {
     }
   }, [navigate]);
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
     try {
+      const formData = new FormData();
+      formData.append("Title", title);
+      formData.append("Description", description);
+      formData.append("Ingredients", ingredients.split("\n"));
+      formData.append("Instructions", instructions);
+      formData.append("CuisineType", mealType || customMealType);
+      formData.append("DietaryTags", dietaryTags);
+      formData.append("DifficultyLevel", difficultyLevel);
+      formData.append("CreationDate", new Date());
+      formData.append("UserUserID", JSON.parse(localStorage.getItem("user")).UserID);
+      formData.append("Image", image);
+
       const response = await axios.post(
         "http://localhost:3000/api/recipes",
-        {
-          Title: title,
-          Description: description,
-          Ingredients: ingredients.split("\n"),
-          Instructions: instructions,
-          CuisineType: mealType || customMealType,
-          DietaryTags: dietaryTags,
-          DifficultyLevel: difficultyLevel,
-          CreationDate: new Date(),
-          UserUserID: JSON.parse(localStorage.getItem("user")).UserID,
-        },
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -95,7 +105,20 @@ const AddRecipe = () => {
 
   return (
     <Container className="mt-5 add-recipe-container">
-      <h1 className="text-center">Add New Recipe</h1>
+      <Row className="align-items-center mb-3">
+        <Col>
+          <h1 className="text-center">Add New Recipe</h1>
+        </Col>
+        <Col className="text-center">
+          <div className="image-upload-container">
+            <label htmlFor="file-upload" className="image-upload">
+              <FontAwesomeIcon icon={faPlusCircle} size="4x" />
+              <input id="file-upload" type="file" onChange={handleImageChange} accept="image/*" />
+            </label>
+            {image && <p>{image.name}</p>}
+          </div>
+        </Col>
+      </Row>
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
       <Form className="recipe_form" onSubmit={handleSubmit}>
