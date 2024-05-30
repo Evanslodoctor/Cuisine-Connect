@@ -1,59 +1,16 @@
-const multer = require('multer');
-const path = require('path');
-
+// controllers/RecipeController.js
 const db = require("../models");
 const Recipe = db.Recipe;
-const Favorite = db.Favorite;
+const Favorite = db.Favorite; // Import the Favorite model
 const { Op } = require("sequelize");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}_${file.originalname}`);
-  }
-});
-
-const upload = multer({ storage: storage });
-
 exports.createRecipe = async (req, res) => {
-  upload.single('image')(req, res, async (err) => {
-    if (err) {
-      return res.status(400).json({ message: err.message });
-    }
-
-    try {
-      const {
-        Title,
-        Description,
-        Ingredients,
-        Instructions,
-        CuisineType,
-        DietaryTags,
-        DifficultyLevel,
-        CreationDate,
-        UserUserID
-      } = req.body;
-
-      const newRecipe = await Recipe.create({
-        Title,
-        Description,
-        Ingredients: JSON.parse(Ingredients),
-        Instructions,
-        CuisineType,
-        DietaryTags,
-        DifficultyLevel,
-        CreationDate: new Date(CreationDate),
-        UserUserID,
-        Image: req.file ? req.file.path : null
-      });
-
-      res.status(201).json(newRecipe);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
-  });
+  try {
+    const newRecipe = await Recipe.create(req.body);
+    res.status(201).json(newRecipe);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };
 
 exports.getAllRecipes = async (req, res) => {
@@ -113,6 +70,7 @@ exports.rateRecipe = async (req, res) => {
       return res.status(404).json({ message: "Recipe not found" });
     }
 
+    // Update the average rating and number of ratings
     const newNumberOfRatings = recipe.NumberOfRatings + 1;
     const newAverageRating =
       (recipe.AverageRating * recipe.NumberOfRatings + parseFloat(rating)) / newNumberOfRatings;
@@ -137,11 +95,13 @@ exports.addToFavorites = async (req, res) => {
       return res.status(404).json({ message: "Recipe not found" });
     }
 
+    // Check if the recipe is already in favorites
     const existingFavorite = await Favorite.findOne({ where: { RecipeID: id } });
     if (existingFavorite) {
       return res.status(400).json({ message: "Recipe already in favorites" });
     }
 
+    // Add the recipe to favorites
     await Favorite.create({ RecipeID: id, FavoriteDate: new Date() });
 
     res.status(201).json({ message: "Recipe added to favorites successfully" });
@@ -156,8 +116,9 @@ exports.searchRecipes = async (req, res) => {
     const recipes = await Recipe.findAll({
       where: {
         [Op.or]: [
-          { Title: { [Op.iLike]: `%${keyword}%` } },
+          { Title: { [Op.iLike]: `%${keyword}%` } }, // Case-insensitive search
           { Description: { [Op.iLike]: `%${keyword}%` } },
+          // Add more fields to search if needed
         ],
       },
     });
@@ -170,8 +131,8 @@ exports.searchRecipes = async (req, res) => {
 exports.getPopularRecipes = async (req, res) => {
   try {
     const popularRecipes = await Recipe.findAll({
-      order: [["NumberOfRatings", "DESC"]],
-      limit: 10,
+      order: [["NumberOfRatings", "DESC"]], // Order by number of ratings in descending order
+      limit: 10, // Limit to 10 recipes
     });
     res.json(popularRecipes);
   } catch (error) {
