@@ -31,9 +31,24 @@ const UpdateRecipePage = () => {
   const fetchRecipes = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/recipes');
-      setRecipes(response.data); 
+      setRecipes(response.data);
     } catch (error) {
       console.error('Error fetching recipes:', error);
+    }
+  };
+
+  const fetchRecipeDetails = async (recipeID) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/recipes/${recipeID}`);
+      const recipe = response.data;
+      setNewTitle(recipe.Title);
+      setNewDescription(recipe.Description);
+      setNewIngredients(recipe.Ingredients);
+      setNewInstructions(recipe.Instructions);
+      setNewCuisineType(recipe.CuisineType);
+      setNewImage(recipe.Image);
+    } catch (error) {
+      console.error('Error fetching recipe details:', error);
     }
   };
 
@@ -53,12 +68,9 @@ const UpdateRecipePage = () => {
     }
   };
 
-  const handleKeyPress = async (e) => {
-    if (e.key === 'Enter') {
-      setSelectedRecipe(newTitle);
-      setNewTitle('');
-      setNewDescription('');
-    }
+  const handleRecipeSelection = (recipeID) => {
+    setSelectedRecipe(recipeID);
+    fetchRecipeDetails(recipeID);
   };
 
   return (
@@ -70,21 +82,20 @@ const UpdateRecipePage = () => {
           type="text"
           className="form-control"
           placeholder="Search or Add Recipe Title"
-          value={newTitle}
-          onChange={(e) => setNewTitle(e.target.value)}
-          onKeyPress={handleKeyPress}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </Form.Group>
       <Form.Group>
         <Form.Label>Select Recipe to Update</Form.Label>
         <select
           className="form-control"
-          onChange={(e) => setSelectedRecipe(e.target.value)}
+          onChange={(e) => handleRecipeSelection(e.target.value)}
           value={selectedRecipe}
         >
           <option value="">Select Recipe</option>
           {filteredRecipes.map((recipe) => (
-            <option key={recipe.RecipeID} value={recipe.Title}>{recipe.Title}</option>
+            <option key={recipe.RecipeID} value={recipe.RecipeID}>{recipe.Title}</option>
           ))}
         </select>
       </Form.Group>
