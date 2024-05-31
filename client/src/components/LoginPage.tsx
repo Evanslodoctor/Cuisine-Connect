@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Form, Button, Image } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
+import Baselayout from "./Baselayout";
 
 const LoginPage: React.FC = ({ setIsLoggedIn }: any) => {
   const [username, setUsername] = useState("");
@@ -44,7 +45,7 @@ const LoginPage: React.FC = ({ setIsLoggedIn }: any) => {
       backgroundSize: `cover`,
       height: `100vh`
       }}>
-      <Container fluid className="login-page w-100 h-100 m-0 p-0 position-relative" style={{width: `100vw`}}>
+      <Container fluid className="signup-page w-100 h-100 m-0 p-0 position-relative" style={{width: `100vw`}}>
         {/* <div style={{color: `white`}} className="sevillana-regular">
           <h2>
             Sign in to share your own beautiful recipes
@@ -52,10 +53,10 @@ const LoginPage: React.FC = ({ setIsLoggedIn }: any) => {
         </div> */}
         <Form className="bg-white text-success d-flex flex-column align-items-center p-5 h-100 fw-semibold position-absolute end-0 top-0" style={{minWidth: `50vw`}}> 
           <div className="text-center">
-            <Link className="d-flex justify-content-center" to="/">
+            {/* <Link className="d-flex justify-content-center" to="/">
               <Image src="https://img.freepik.com/free-psd/abstract-3d-web-logo-typographical-transparent-psd_460848-17964.jpg?size=626&ext=jpg&ga=GA1.1.1972000078.1716376540&semt=ais_user" className="w-25 h-25"></Image>
-            </Link>
-            <h3>
+            </Link> */}
+            <h3 className="sevillana-regular">
               Welcome Back!
             </h3>
           </div>

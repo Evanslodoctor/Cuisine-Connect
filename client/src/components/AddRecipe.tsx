@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Form, Button, Alert, Row, Col, CardBody } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import Baselayout from "./Baselayout";
 
 const AddRecipe = () => {
@@ -105,15 +105,15 @@ const AddRecipe = () => {
   };
 
   return (
-    <Container className="mt-5 add-recipe-container">
+    <Container className="mt-5 add-recipe-container bg-white">
       <Row className="align-items-center mb-3">
-        <Col>
+        <Col className="w-100">
           <h1 className="text-center">Add New Recipe</h1>
         </Col>
         <Col className="text-center">
           <div className="image-upload-container">
             <label htmlFor="file-upload" className="image-upload">
-              <FontAwesomeIcon icon={faPlusCircle} size="4x" />
+              {/* <FontAwesomeIcon icon={faPlusCircle} size="4x" /> */}
               <input id="file-upload" type="file" onChange={handleImageChange} accept="image/*" />
             </label>
             {image && <p>{image.name}</p>}

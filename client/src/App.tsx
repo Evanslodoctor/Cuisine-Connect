@@ -26,37 +26,33 @@ function App() {
 
   return (
     <div className="background-image">
-      <Header isLoggedIn={isLoggedIn} />
-      <div className="main-body">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route
-            path="/login"
-            element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
-          />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route
-            path="/dashboard"
-            element={
-              isLoggedIn ? (
-                <UserDashboard isLoggedIn={isLoggedIn} />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/recipe/:recipeID"
-            element={<ViewRecipe isLoggedIn={isLoggedIn} />}
-          />
-          <Route
-            path="/add-recipe"
-            element={isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />}
-          />
-        </Routes>
-      </div>
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route
+          path="/login"
+          element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            isLoggedIn ? (
+              <UserDashboard isLoggedIn={isLoggedIn} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/recipe/:recipeID"
+          element={<ViewRecipe isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/add-recipe"
+          element={isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />}
+        />
+      </Routes>
     </div>
     
   );

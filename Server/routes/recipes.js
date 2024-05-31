@@ -18,6 +18,6 @@ router.post("/:id/favorite", RecipeController.addToFavorites);
 
 const upload = multer({ dest: 'uploads/' }); // Use the same multer configuration as in the controller
 
-router.post('/recipes', upload.single('image'), recipeController.createRecipe);
+router.post('/recipes', upload.single('image'), RecipeController.createRecipe);
 
 module.exports = router;
