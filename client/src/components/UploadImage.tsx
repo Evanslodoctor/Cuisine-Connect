@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 
-const UploadImage = ({ recipeId }) => {
+const UploadImage = () => {
+  const { uniqueId } = useParams();
   const [image, setImage] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -15,23 +17,24 @@ const UploadImage = ({ recipeId }) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
-    try {
-      const formData = new FormData();
-      formData.append("Image", image);
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("uniqueId", uniqueId);
 
+    try {
       const response = await axios.post(
-        `http://localhost:3000/api/recipes/${recipeId}/image`,
+        "http://localhost:3000/api/recipes/upload-image",
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      if (response.status >= 200 && response.status < 300) {
-        setSuccess("Image uploaded successfully!");
+      if (response && response.data) {
+        setSuccess("Recipe added successfully!");
         setError("");
       } else {
         setError("Failed to upload image. Please try again later.");
@@ -44,23 +47,20 @@ const UploadImage = ({ recipeId }) => {
   };
 
   return (
-    <Container className="mt-5">
-      <h1 className="text-center">Upload Image</h1>
+    <Container className="mt-5 upload-image-container">
+      <h1 className="text-center">Upload Recipe Image</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="image">
-          <Form.Label>Choose Image</Form.Label>
-          <Form.Control
-            type="file"
-            onChange={handleImageChange}
-            accept="image/*"
-            required
-          />
+          <Form.Label>Recipe Image</Form.Label>
+          <Form.Control type="file" onChange={handleImageChange} required />
         </Form.Group>
-        <Button variant="primary" type="submit" className="mt-3">
-          Upload Image
-        </Button>
+        <div className="text-center">
+          <Button variant="primary" type="submit" className="mt-3">
+            Save
+          </Button>
+        </div>
       </Form>
     </Container>
   );

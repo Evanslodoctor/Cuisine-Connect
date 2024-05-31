@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Form, Button, Alert, Row, Col } from "react-bootstrap";
+import { v4 as uuidv4 } from "uuid";
 
 const AddRecipe = () => {
   const navigate = useNavigate();
@@ -59,6 +60,8 @@ const AddRecipe = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
+    const userId = JSON.parse(localStorage.getItem("user")).UserID;
+    const uniqueId = `${userId}-${uuidv4()}`;
 
     try {
       const response = await axios.post(
@@ -72,7 +75,8 @@ const AddRecipe = () => {
           DietaryTags: dietaryTags,
           DifficultyLevel: difficultyLevel,
           CreationDate: new Date(),
-          UserUserID: JSON.parse(localStorage.getItem("user")).UserID,
+          UserUserID: userId, // Correct the variable reference
+          UniqueId: uniqueId,
         },
         {
           headers: {
@@ -80,11 +84,11 @@ const AddRecipe = () => {
           },
         }
       );
+
       if (response && response.data) {
         setSuccess("Recipe added successfully!");
-        navigate("/upload-image");
         setError("");
-        navigate(`/upload-image/${response.data.recipeId}`);
+        navigate(`/upload-image/${uniqueId}`); // Use uniqueId for navigation
       } else {
         setError("Failed to add recipe. Please try again later.");
         setSuccess("");
@@ -213,7 +217,6 @@ const AddRecipe = () => {
           <Button variant="primary" type="submit" className="mt-3">
             Next
           </Button>
-          
         </div>
       </Form>
     </Container>

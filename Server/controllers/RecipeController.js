@@ -33,7 +33,20 @@ exports.getRecipeById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+// Update
+exports.updateRecipe = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedRecipe = await Recipe.update(req.body, {
+      where: {
+        RecipeID: id,
+      },
+    });
+    res.json(updatedRecipe);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 exports.updateRecipeById = async (req, res) => {
   try {
     const recipe = await Recipe.findByPk(req.params.id);

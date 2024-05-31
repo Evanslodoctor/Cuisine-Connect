@@ -12,6 +12,7 @@ import UserDashboard from "./components/UserDashboard";
 import ViewRecipe from "./components/ViewRecipe";
 import AddRecipe from "./components/AddRecipe";
 import UploadImage from "./components/UploadImage";
+import UpdateRecipePage from "./components/UpdateRecipePage";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
@@ -55,7 +56,11 @@ function App() {
             path="/add-recipe"
             element={isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />}
           />
-            <Route path="/upload-image/:recipeId" element={<UploadImage />} />
+          <Route
+            path="/update-recipe"
+            element={isLoggedIn ? <UpdateRecipePage/> : <Navigate to="/login" />}
+          />
+            <Route path="/upload-image/:uniqueId" element={<UploadImage />} />
         </Routes>
       </div>
       <Footer />

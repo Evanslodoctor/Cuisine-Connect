@@ -14,5 +14,6 @@ router.get('/search', RecipeController.searchRecipes);
 router.post("/:id/rate", RecipeController.rateRecipe);
 // Route for adding a recipe to favorites
 router.post("/:id/favorite", RecipeController.addToFavorites);
+router.put("/:id", RecipeController.updateRecipe);
 
 module.exports = router;

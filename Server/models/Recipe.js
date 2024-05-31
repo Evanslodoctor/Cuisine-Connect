@@ -53,12 +53,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    UniqueId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
   });
 
   Recipe.associate = (models) => {
     Recipe.belongsTo(models.User, {
       foreignKey: {
-        name: "UserUserID", // Specify the name of the foreign key column
+        name: "UserUserID",
         allowNull: false,
         onDelete: "CASCADE",
       },
