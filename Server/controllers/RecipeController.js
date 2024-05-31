@@ -34,17 +34,34 @@ exports.getRecipeById = async (req, res) => {
   }
 };
 // Update
+// Controller for updating a recipe
 exports.updateRecipe = async (req, res) => {
-  const { id } = req.params;
   try {
-    const updatedRecipe = await Recipe.update(req.body, {
-      where: {
-        RecipeID: id,
-      },
+    const { id } = req.params;
+    const { title, description, ingredients, instructions, cuisineType, dietaryTags, difficultyLevel } = req.body;
+
+    // Check if the recipe exists
+    const recipe = await Recipe.findByPk(id);
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    // Update the recipe
+    await recipe.update({
+      Title: title,
+      Description: description,
+      Ingredients: ingredients,
+      Instructions: instructions,
+      CuisineType: cuisineType,
+      DietaryTags: dietaryTags,
+      DifficultyLevel: difficultyLevel,
+      // Add other fields to update
     });
-    res.json(updatedRecipe);
+
+    res.json({ message: 'Recipe updated successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error updating recipe:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 exports.updateRecipeById = async (req, res) => {
@@ -129,18 +146,18 @@ exports.searchRecipes = async (req, res) => {
     const recipes = await Recipe.findAll({
       where: {
         [Op.or]: [
-          { Title: { [Op.iLike]: `%${keyword}%` } }, // Case-insensitive search
-          { Description: { [Op.iLike]: `%${keyword}%` } },
+          { Title: { [Op.iLike]: `%${keyword}%` } }, // Case-insensitive search in Title
+          { Description: { [Op.iLike]: `%${keyword}%` } }, // Case-insensitive search in Description
           // Add more fields to search if needed
         ],
       },
     });
     res.json(recipes);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error searching recipes:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
-
 exports.getPopularRecipes = async (req, res) => {
   try {
     const popularRecipes = await Recipe.findAll({
