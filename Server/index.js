@@ -6,6 +6,7 @@ const recipesRouter = require('./routes/recipes'); // Import the recipe router
 const favoritesRouter = require('./routes/favorites'); // Import the favorite router
 const commentsRouter = require('./routes/comments'); // Import the comment router
 const loginRoute = require('./routes/login');
+const recipeImageRoutes = require('./routes/recipeImageRoutes');
 const cors = require('cors');
 
 // Middleware to parse JSON bodies
@@ -18,6 +19,9 @@ app.use('/api/recipes', recipesRouter); // Mount the recipe router under '/api/r
 app.use('/api/favorites', favoritesRouter); // Mount the favorite router under '/api/favorites'
 app.use('/api/comments', commentsRouter); // Mount the comment router under '/api/comments'
 app.use('/api/login', loginRoute);
+app.use('/api/recipes/upload-image', recipeImageRoutes);
+// Routes
+
 
 // Start the Express server
 const PORT = process.env.PORT || 3000;

@@ -11,7 +11,8 @@ import SignupPage from "./components/SignupPage";
 import UserDashboard from "./components/UserDashboard";
 import ViewRecipe from "./components/ViewRecipe";
 import AddRecipe from "./components/AddRecipe";
-
+import UploadImage from "./components/UploadImage";
+import UpdateRecipePage from "./components/UpdateRecipePage";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
@@ -26,33 +27,43 @@ function App() {
 
   return (
     <div className="background-image">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/login"
-          element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
-        />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route
-          path="/dashboard"
-          element={
-            isLoggedIn ? (
-              <UserDashboard isLoggedIn={isLoggedIn} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="/recipe/:recipeID"
-          element={<ViewRecipe isLoggedIn={isLoggedIn} />}
-        />
-        <Route
-          path="/add-recipe"
-          element={isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />}
-        />
-      </Routes>
+      <Header isLoggedIn={isLoggedIn} />
+      <div className="main-body">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/login"
+            element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              isLoggedIn ? (
+                <UserDashboard isLoggedIn={isLoggedIn} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/recipe/:recipeID"
+            element={<ViewRecipe isLoggedIn={isLoggedIn} />}
+          />
+        
+          <Route
+            path="/add-recipe"
+            element={isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/update-recipe"
+            element={isLoggedIn ? <UpdateRecipePage/> : <Navigate to="/login" />}
+          />
+            <Route path="/upload-image/:uniqueId" element={<UploadImage />} />
+        </Routes>
+      </div>
+      <Footer />
     </div>
     
   );

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Container, Form, Button, Alert, Row, Col, CardBody } from "react-bootstrap";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import Baselayout from "./Baselayout";
+import { Container, Form, Button, Alert, Row, Col } from "react-bootstrap";
+import { v4 as uuidv4 } from "uuid";
 
 const AddRecipe = () => {
   const navigate = useNavigate();
@@ -18,7 +16,6 @@ const AddRecipe = () => {
   const [difficultyLevel, setDifficultyLevel] = useState("easy");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [image, setImage] = useState(null);
 
   const africanMeals = [
     "Jollof Rice, Nigeria", "Bunny Chow, South Africa", "Tagine, Morocco", "Injera, Ethiopia",
@@ -60,40 +57,38 @@ const AddRecipe = () => {
     }
   }, [navigate]);
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
+    const userId = JSON.parse(localStorage.getItem("user")).UserID;
+    const uniqueId = `${userId}-${uuidv4()}`;
 
     try {
-      const formData = new FormData();
-      formData.append("Title", title);
-      formData.append("Description", description);
-      formData.append("Ingredients", ingredients.split("\n"));
-      formData.append("Instructions", instructions);
-      formData.append("CuisineType", mealType || customMealType);
-      formData.append("DietaryTags", dietaryTags);
-      formData.append("DifficultyLevel", difficultyLevel);
-      formData.append("CreationDate", new Date());
-      formData.append("UserUserID", JSON.parse(localStorage.getItem("user")).UserID);
-      formData.append("Image", image);
-
       const response = await axios.post(
         "http://localhost:3000/api/recipes",
-        formData,
+        {
+          Title: title,
+          Description: description,
+          Ingredients: ingredients.split("\n"),
+          Instructions: instructions,
+          CuisineType: mealType || customMealType,
+          DietaryTags: dietaryTags,
+          DifficultyLevel: difficultyLevel,
+          CreationDate: new Date(),
+          UserUserID: userId, // Correct the variable reference
+          UniqueId: uniqueId,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
           },
         }
       );
+
       if (response && response.data) {
         setSuccess("Recipe added successfully!");
         setError("");
+        navigate(`/upload-image/${uniqueId}`); // Use uniqueId for navigation
       } else {
         setError("Failed to add recipe. Please try again later.");
         setSuccess("");
@@ -105,21 +100,8 @@ const AddRecipe = () => {
   };
 
   return (
-    <Container className="mt-5 add-recipe-container bg-white">
-      <Row className="align-items-center mb-3">
-        <Col className="w-100">
-          <h1 className="text-center">Add New Recipe</h1>
-        </Col>
-        <Col className="text-center">
-          <div className="image-upload-container">
-            <label htmlFor="file-upload" className="image-upload">
-              {/* <FontAwesomeIcon icon={faPlusCircle} size="4x" /> */}
-              <input id="file-upload" type="file" onChange={handleImageChange} accept="image/*" />
-            </label>
-            {image && <p>{image.name}</p>}
-          </div>
-        </Col>
-      </Row>
+    <Container className="mt-5 add-recipe-container">
+      <h1 className="text-center">Add New Recipe</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
       <Form className="recipe_form" onSubmit={handleSubmit}>
@@ -233,14 +215,7 @@ const AddRecipe = () => {
         </Row>
         <div className="text-center">
           <Button variant="primary" type="submit" className="mt-3">
-            Add Recipe
-          </Button>
-          <Button
-            variant="secondary"
-            className="mt-3 ml-3"
-            onClick={() => navigate("/update-recipe")}
-          >
-            Update Recipe
+            Next
           </Button>
         </div>
       </Form>

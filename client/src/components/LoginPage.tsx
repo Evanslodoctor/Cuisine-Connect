@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Form, Button, Image } from "react-bootstrap";
+import { Container, Form, Button, Image, Alert } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import Baselayout from "./Baselayout";
 
 const LoginPage: React.FC = ({ setIsLoggedIn }: any) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the user is already logged in by checking localStorage
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
@@ -24,33 +24,22 @@ const LoginPage: React.FC = ({ setIsLoggedIn }: any) => {
         username,
         password,
       });
-      // Handle successful login
-      console.log("Login successful:", response.data);
-      // Store the token in local storage
       localStorage.setItem("token", response.data.token);
-      // Update the isLoggedIn state in the App component
       setIsLoggedIn(true);
-      // Redirect to dashboard
       navigate("/dashboard");
     } catch (error) {
-      // Handle login error
-      console.error("Login failed:", error);
+      setError("Invalid username or password. Please try again.");
     }
   };
 
   return (
     <Container fluid className="m-0 p-0" 
-    style={{
-      background: `url(/background/slide4.jpg)`,
-      backgroundSize: `cover`,
-      height: `100vh`
+      style={{
+        background: `url(/background/slide4.jpg)`,
+        backgroundSize: `cover`,
+        height: `100vh`
       }}>
-      <Container fluid className="signup-page w-100 h-100 m-0 p-0 position-relative" style={{width: `100vw`}}>
-        {/* <div style={{color: `white`}} className="sevillana-regular">
-          <h2>
-            Sign in to share your own beautiful recipes
-          </h2>
-        </div> */}
+      <Container fluid className="login-page w-100 h-100 m-0 p-0 position-relative" style={{width: `100vw`}}>
         <Form className="bg-white text-success d-flex flex-column align-items-center p-5 h-100 fw-semibold position-absolute end-0 top-0" style={{minWidth: `50vw`}}> 
           <div className="text-center">
             {/* <Link className="d-flex justify-content-center" to="/">
@@ -60,6 +49,7 @@ const LoginPage: React.FC = ({ setIsLoggedIn }: any) => {
               Welcome Back!
             </h3>
           </div>
+          {error && <Alert variant="danger" className='w-75'>{error}</Alert>}
           <Form.Group className='mt-5 w-75' controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
