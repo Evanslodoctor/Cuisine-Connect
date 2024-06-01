@@ -79,7 +79,10 @@ function App() {
               element={<UploadImage />}
             />
           </Routes>
-        </div>
+         
+     
+          </div>
+          
       </div>
       <Footer />
     </div>
