@@ -5,6 +5,11 @@
 
   text-align: center;
 } */
+.main-body-wrapper {
+  height: 100vh; /* Set height to 100% of viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
 
 .card {
   padding: 2em;
