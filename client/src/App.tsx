@@ -16,6 +16,7 @@ import UpdateRecipePage from "./components/UpdateRecipePage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -26,9 +27,17 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle('dark-mode', darkMode);
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <div className="background-image">
-      <Header isLoggedIn={isLoggedIn} />
+      <Header isLoggedIn={isLoggedIn} toggleDarkMode={toggleDarkMode} />
       <div className="main-body-wrapper">
         <div className="main-body">
           <Routes>

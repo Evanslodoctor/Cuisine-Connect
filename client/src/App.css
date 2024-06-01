@@ -6,7 +6,7 @@
   text-align: center;
 } */
 .main-body-wrapper {
-  height: 100vh; /* Set height to 100% of viewport height */
+  height: 90vh; /* Set height to 100% of viewport height */
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
@@ -119,4 +119,113 @@ button {
 /* updateRecipe */
 .updateRecipe{
   margin-top: 200px;
+}
+
+/* useepage */
+.dashboard{
+  margin-top: 60px;
+  padding-top: 60px;
+}
+.recipe-card {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.recipe-link {
+  color: inherit; /* Inherit text color from parent */
+  text-decoration: none; /* Remove default link underline */
+}
+
+.recipe-link:hover {
+  text-decoration: none; /* Remove underline on hover */
+}
+.dashboard .text-center{
+  background-color: rgba(0, 26, 255, 0.6);
+  border-radius: 30%;
+  padding: 9px;
+  color: white;
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 20px;
+  height: 100%;
+  border-right: 1px solid #dee2e6;
+}
+
+.sidebar h5 {
+  margin-bottom: 10px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+/* CSS styles for the menu button */
+.menu-button {
+  background-color: rgba(0, 26, 255, 0.6);
+  border: none;
+  margin-top: 30px;
+  margin-left: 0;
+  color: #fffdfd; /* Default color */
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.menu-button:hover {
+  color: #fff; /* Text color on hover */
+  background-color: #333333; /* Background color on hover */
+}
+
+/* CSS styles for the menu icon */
+.menu-icon {
+  margin-right: 0.5rem;
+}
+
+/* CSS styles for expanded state */
+.menu-button.expanded {
+  color: #fff; /* Text color when expanded */
+  background-color: #333; /* Background color when expanded */
+}
+
+
+
+
+
+/* Light Mode */
+.light {
+  background-color: #ffffff; /* Light background color */
+  color: #000000; /* Dark text color */
+}
+
+.light .menu-button {
+  background-color: #ffffff; /* Light background color for menu button */
+  color: #000000; /* Dark text color for menu button */
+}
+
+/* Dark Mode */
+.dark {
+  background-color: #000000; /* Dark background color */
+  color: #ffffff; /* Light text color */
+}
+
+.dark .menu-button {
+  background-color: #000000; /* Dark background color for menu button */
+  color: #ffffff; /* Light text color for menu button */
 }
