@@ -99,62 +99,52 @@ const ViewRecipe = () => {
   return (
     <Container className="mt-5 viewrecipe">
       {recipe ? (
-        <>
-          <Row>
-            <Col>
+        <Row>
+          <Col lg={6} className="recipe-image" style={{ backgroundImage: `url(${recipe.Image})` }}>
+            <div className="recipe-details">
               <h2>{recipe.Title}</h2>
-              <p>Description: {recipe.Description}</p>
-              <p>Cuisine Type: {recipe.CuisineType}</p>
-              <p>Dietary Tags: {recipe.DietaryTags}</p>
-              <p>Difficulty Level: {recipe.DifficultyLevel}</p>
+              <p>Owner: {recipe.Owner}</p>
+              <p>Type: {recipe.Type}</p>
+              <p>Level: {recipe.Level}</p>
               <p>Average Rating: {recipe.AverageRating}</p>
-              <p>Number of Ratings: {recipe.NumberOfRatings}</p>
-            </Col>
-          </Row>
-          <Row className="mt-4">
-            <Col>
-              <h3>Ingredients:</h3>
-              {Array.isArray(recipe.Ingredients) ? (
-                recipe.Ingredients.map((ingredient, index) => (
-                  <p key={index}>{ingredient}</p>
-                ))
-              ) : (
-                <p>{recipe.Ingredients}</p>
-              )}
-            </Col>
-          </Row>
-          <Row className="mt-4">
-            <Col>
-              <h3>Instructions:</h3>
-              {recipe.Instructions.split("\n").map((instruction, index) => (
-                <p key={index}>{instruction}</p>
-              ))}
-            </Col>
-          </Row>
-          <Row className="mt-4">
-            <Col>
-              <Form.Group>
-                <Form.Label>Rate this recipe:</Form.Label>
-                <Form.Check
-                  type="checkbox"
-                  id={`rating-star`}
-                  label="Rate"
-                  onChange={(e) => handleRatingChange(e.target.checked ? 5 : 0)}
-                  className="d-inline-block"
-                />
-              </Form.Group>
-              {!isFavorite && (
-                <Button
-                  variant="outline-primary"
-                  onClick={handleAddToFavorites}
-                  className="mt-2"
-                >
-                  Add to Favorites
-                </Button>
-              )}
-            </Col>
-          </Row>
-        </>
+            </div>
+          </Col>
+          <Col lg={6}>
+            <h3>Ingredients:</h3>
+            {Array.isArray(recipe.Ingredients) ? (
+              recipe.Ingredients.map((ingredient, index) => (
+                <p key={index}>{ingredient}</p>
+              ))
+            ) : (
+              <p>{recipe.Ingredients}</p>
+            )}
+            <h3>Instructions:</h3>
+            {recipe.Instructions.split("\n").map((instruction, index) => (
+              <p key={index}>{instruction}</p>
+            ))}
+            <Form.Group>
+              <Form.Label>Rate this recipe:</Form.Label>
+              <Form.Check
+                type="checkbox"
+                id={`rating-star`}
+                label="Rate"
+                onChange={(e) =>
+                  handleRatingChange(e.target.checked ? 5 : 0)
+                }
+                className="d-inline-block"
+              />
+            </Form.Group>
+            {!isFavorite && (
+              <Button
+                variant="outline-primary"
+                onClick={handleAddToFavorites}
+                className="mt-2"
+              >
+                Add to Favorites
+              </Button>
+            )}
+          </Col>
+        </Row>
       ) : (
         <p>Loading recipe...</p>
       )}
