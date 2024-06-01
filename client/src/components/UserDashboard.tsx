@@ -106,7 +106,7 @@ const UserDashboard = ({ isLoggedIn }) => {
                 <Link to={`/recipe/${recipe.RecipeID}`} className="recipe-link">
                   <Card className="h-100 recipe-card" style={{ backgroundImage: `url(${recipe.Image})` }}>
                     <Card.Body className="d-flex flex-column justify-content-center align-items-center">
-                      <Card.Title className="text-center mb-3">{recipe.Title}</Card.Title>
+                      <Card.Title className="text-center mb-3 recipe-text">{recipe.Title}</Card.Title>
                       <Button variant="primary">View Recipe</Button>
                     </Card.Body>
                   </Card>

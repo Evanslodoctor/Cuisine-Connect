@@ -59,122 +59,35 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.login-page,
-.signup_page {
-  width: 370px;
-  padding-top: 20px;
-  place-items: center;
-  color: rgb(255, 255, 255);
-  background-color: rgba(104, 102, 102, 0.6);
-}
-
-/* Light mode styles */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-/* Media queries for responsiveness */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2.5em;
-  }
-}
-
-@media (max-width: 576px) {
-  h1 {
-    font-size: 2em;
-  }
-
-  .login-page,
-  .signup_page {
-    width: 90%;
-  }
-}
-
-/* Carousel styles */
 .carousel-reduced-size {
-  margin-bottom: 0px; /* Adjust margin as needed */
+  margin-bottom: 0;
+  
 }
 
 .carousel-reduced-size .carousel-background {
-  height: 90vh; /* Adjust this value as needed for the desired height */
+  height: 60vh;
+  
   background-size: cover;
   background-position: center;
   margin-bottom: 0;
 }
 
 .carousel-text {
-  background-color: rgba(0, 0, 0, 0.5); /* Optional: Add a semi-transparent background to text */
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 10px;
 }
 
-/* Reduce margin between carousel and about section */
-.carousel-reduced-size {
-  margin-bottom: 20px; /* Adjust margin as needed */
-}
-
 .about-section {
   padding-top: 20px;
-}
-
-.main-body-wrapper {
-  height: 100vh; /* Set height to 100% of viewport height */
-  overflow-y: auto; /* Enable vertical scrolling */
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.MainBody {
-  margin-bottom: 0;
-}
-
-.active-link {
-  color: blue !important; /* Blue color for active link */
-}
-
-.nav-link {
-  color: white; /* White color for other links */
-}
-
-.app-container {
-  position: relative;
-}
-
-.background-image {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(192, 192, 192, 0.6);
-  z-index: -1;
-}
-
-.about-section {
   text-align: center;
-  margin: 0 auto 100px; /* Adjust bottom margin as needed */
+  margin: 0 auto ; 
   padding: 20px 40px;
+  max-width: 98%;
   background-color: #f8f9fa;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Span entire width of the screen */
+
 }
 
 .about-section h2 {
@@ -197,27 +110,26 @@ button:focus-visible {
 
 .about-section ul li {
   margin-bottom: 10px;
-list-style: none;
+  list-style: none;
 }
 
 .footer .text-white {
   text-align: center;
 }
 
-/* Navbar */
 .navbar {
-  background-color: rgba(29, 29, 29, 0.4);
-  align-items: center;
-  margin-bottom: 10px;
+  background-color: rgba(29, 29, 29, 1);
+  align-items: left;
+  padding: 20px;
 }
 
 .darshbord {
   margin-top: 100px;
+ 
   background-color: rgba(196, 193, 193, 0.4);
   color: black;
 }
 
-/* View Recipe */
 .view-recipe {
   margin-top: 2rem;
 }
@@ -225,7 +137,7 @@ list-style: none;
 .recipe-image {
   background-size: cover;
   background-position: center;
-  height: 400px; /* Adjust height to make the image smaller */
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,7 +155,8 @@ list-style: none;
   max-width: 80%;
 }
 
-.recipe-details h2, .recipe-details p {
+.recipe-details h2,
+.recipe-details p {
   margin: 0.5rem 0;
 }
 
@@ -264,14 +177,13 @@ list-style: none;
   text-align: center;
 }
 
-.viewrecipe h2, .viewrecipe h3 {
+.viewrecipe h2,
+.viewrecipe h3 {
   color: blue;
 }
 
-@media (min-width: 768px) {
-  .form-group {
-    margin-bottom: 15px;
-  }
+.form-group {
+  margin-bottom: 15px;
 }
 
 .form-group textarea {
@@ -310,15 +222,14 @@ button {
   color: #007bff;
 }
 
-/* Update Recipe */
 .updateRecipe {
   margin-top: 200px;
 }
 
-/* User Page */
 .dashboard {
   margin-top: 60px;
   padding-top: 60px;
+  max-width: 90%;
 }
 
 .recipe-card {
@@ -326,21 +237,20 @@ button {
   background-position: center;
   background-repeat: no-repeat;
 }
+.recipe-text{
+  background-color: rgba(29, 29, 29, 0.6);
+  color: white;
+  padding: 7px;
+  border-radius: 10%;
+}
 
 .recipe-link {
-  color: inherit; /* Inherit text color from parent */
-  text-decoration: none; /* Remove default link underline */
+  color: inherit;
+  text-decoration: none;
 }
 
 .recipe-link:hover {
-  text-decoration: none; /* Remove underline on hover */
-}
-
-.dashboard .text-center {
-  background-color: rgba(0, 26, 255, 0.6);
-  border-radius: 30%;
-  padding: 9px;
-  color: white;
+  text-decoration: none;
 }
 
 .sidebar {
@@ -372,14 +282,73 @@ button {
   text-decoration: underline;
 }
 
-/* Menu Button Styles */
 .menu-button {
   background-color: rgba(0, 26, 255, 0.6);
   border: none;
   margin-top: 30px;
   margin-left: 0;
-  color: #fffdfd; /* Default color */
+  color: #fffdfd;
   font-size: 1.2rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  transition
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.menu-button:hover {
+  color: #fff;
+  background-color: #333333;
+}
+
+.menu-icon {
+  margin-right: 0.5rem;
+}
+
+.menu-button.expanded {
+  color: #fff;
+  background-color: #333;
+}
+
+.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.light .menu-button {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.dark .menu-button {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.rating-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color
+  : #ffcc00;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.recipe-info h2 {
+  display: none;
+}
+
+.recipe-info p {
+  margin-bottom: 10px;
+}
+
+.recipe-info h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
