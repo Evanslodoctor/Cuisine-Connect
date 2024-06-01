@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+//import "./ViewRecipe.css"; // Ensure this path is correct
 
 const ViewRecipe = () => {
   const { recipeID } = useParams();
@@ -97,52 +98,56 @@ const ViewRecipe = () => {
   };
 
   return (
-    <Container className="mt-5 viewrecipe">
+    <Container className="mt-5 view-recipe">
       {recipe ? (
         <Row>
-          <Col lg={6} className="recipe-image" style={{ backgroundImage: `url(${recipe.Image})` }}>
-            <div className="recipe-details">
-              <h2>{recipe.Title}</h2>
-              <p>Owner: {recipe.Owner}</p>
-              <p>Type: {recipe.Type}</p>
-              <p>Level: {recipe.Level}</p>
-              <p>Average Rating: {recipe.AverageRating}</p>
+          <Col lg={6}>
+            <div className="recipe-image" style={{ backgroundImage: `url(${recipe.Image})` }}>
+              <div className="recipe-details">
+                <h2>{recipe.Title}</h2>
+                <p>{recipe.CuisineType} - {recipe.Time}</p>
+                <p>Dietary Tags: {recipe.DietaryTags}</p>
+                <p>Difficulty Level: {recipe.DifficultyLevel}</p>
+                <p>Number of Ratings: {recipe.NumberOfRatings}</p>
+              </div>
             </div>
           </Col>
           <Col lg={6}>
-            <h3>Ingredients:</h3>
-            {Array.isArray(recipe.Ingredients) ? (
-              recipe.Ingredients.map((ingredient, index) => (
-                <p key={index}>{ingredient}</p>
-              ))
-            ) : (
-              <p>{recipe.Ingredients}</p>
-            )}
-            <h3>Instructions:</h3>
-            {recipe.Instructions.split("\n").map((instruction, index) => (
-              <p key={index}>{instruction}</p>
-            ))}
-            <Form.Group>
-              <Form.Label>Rate this recipe:</Form.Label>
-              <Form.Check
-                type="checkbox"
-                id={`rating-star`}
-                label="Rate"
-                onChange={(e) =>
-                  handleRatingChange(e.target.checked ? 5 : 0)
-                }
-                className="d-inline-block"
-              />
-            </Form.Group>
-            {!isFavorite && (
-              <Button
-                variant="outline-primary"
-                onClick={handleAddToFavorites}
-                className="mt-2"
-              >
-                Add to Favorites
-              </Button>
-            )}
+            <div className="recipe-info">
+              <h3>Ingredients:</h3>
+              {Array.isArray(recipe.Ingredients) ? (
+                recipe.Ingredients.map((ingredient, index) => (
+                  <p key={index}>{ingredient}</p>
+                ))
+              ) : (
+                <p>{recipe.Ingredients}</p>
+              )}
+              <h3>Instructions:</h3>
+              {recipe.Instructions.split("\n").map((instruction, index) => (
+                <p key={index}>{instruction}</p>
+              ))}
+              <div className="recipe-actions">
+                <Form.Group>
+                  <Form.Label>Rate this recipe:</Form.Label>
+                  <Form.Check
+                    type="checkbox"
+                    id={`rating-star`}
+                    label="Rate"
+                    onChange={(e) => handleRatingChange(e.target.checked ? 5 : 0)}
+                    className="d-inline-block"
+                  />
+                </Form.Group>
+                {!isFavorite && (
+                  <Button
+                    variant="outline-primary"
+                    onClick={handleAddToFavorites}
+                    className="mt-2"
+                  >
+                    Add to Favorites
+                  </Button>
+                )}
+              </div>
+            </div>
           </Col>
         </Row>
       ) : (
