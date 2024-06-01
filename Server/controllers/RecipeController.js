@@ -1,4 +1,3 @@
-// controllers/RecipeController.js
 const db = require("../models");
 const Recipe = db.Recipe;
 const Favorite = db.Favorite; // Import the Favorite model
@@ -33,12 +32,12 @@ exports.getRecipeById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// Update
+
 // Controller for updating a recipe
 exports.updateRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, ingredients, instructions, cuisineType, dietaryTags, difficultyLevel } = req.body;
+    const { title, description, ingredients, instructions, cuisineType, image } = req.body;
 
     // Check if the recipe exists
     const recipe = await Recipe.findByPk(id);
@@ -53,17 +52,16 @@ exports.updateRecipe = async (req, res) => {
       Ingredients: ingredients,
       Instructions: instructions,
       CuisineType: cuisineType,
-      DietaryTags: dietaryTags,
-      DifficultyLevel: difficultyLevel,
-      // Add other fields to update
+      Image: image,
     });
 
-    res.json({ message: 'Recipe updated successfully' });
+    res.json({ message: 'Recipe updated successfully', recipe });
   } catch (error) {
     console.error('Error updating recipe:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 exports.updateRecipeById = async (req, res) => {
   try {
     const recipe = await Recipe.findByPk(req.params.id);
@@ -158,6 +156,7 @@ exports.searchRecipes = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 exports.getPopularRecipes = async (req, res) => {
   try {
     const popularRecipes = await Recipe.findAll({

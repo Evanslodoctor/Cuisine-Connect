@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col, Alert, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,6 +15,8 @@ const UpdateRecipePage = () => {
   const [newImage, setNewImage] = useState('');
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetchRecipes();
@@ -33,6 +35,7 @@ const UpdateRecipePage = () => {
       const response = await axios.get('http://localhost:3000/api/recipes');
       setRecipes(response.data);
     } catch (error) {
+      setError('Error fetching recipes');
       console.error('Error fetching recipes:', error);
     }
   };
@@ -48,6 +51,7 @@ const UpdateRecipePage = () => {
       setNewCuisineType(recipe.CuisineType);
       setNewImage(recipe.Image);
     } catch (error) {
+      setError('Error fetching recipe details');
       console.error('Error fetching recipe details:', error);
     }
   };
@@ -62,8 +66,10 @@ const UpdateRecipePage = () => {
         CuisineType: newCuisineType,
         Image: newImage
       });
+      setSuccessMessage('Recipe updated successfully');
       console.log('Recipe updated:', response.data);
     } catch (error) {
+      setError('Error updating recipe');
       console.error('Error updating recipe:', error);
     }
   };
@@ -76,6 +82,8 @@ const UpdateRecipePage = () => {
   return (
     <Container className="mt-5">
       <h1 className="text-center">Update Recipe</h1>
+      {error && <Alert variant="danger">{error}</Alert>}
+      {successMessage && <Alert variant="success">{successMessage}</Alert>}
       <Form.Group>
         <Form.Label>Search or Add Recipe Title</Form.Label>
         <input
@@ -168,7 +176,7 @@ const UpdateRecipePage = () => {
               <Form.Group controlId="formImage">
                 <Form.Label>Image</Form.Label>
                 <Row>
-                  <Col sm={10}>
+                  <Col sm={8}>
                     <Form.Control
                       type="text"
                       placeholder="Enter Image URL"
@@ -176,10 +184,12 @@ const UpdateRecipePage = () => {
                       onChange={(e) => setNewImage(e.target.value)}
                     />
                   </Col>
-                  <Col sm={2}>
-                    <Button variant="outline-secondary">
-                      <FontAwesomeIcon icon={faImage} />
-                    </Button>
+                  <Col sm={4} className="d-flex align-items-center justify-content-center">
+                    {newImage ? (
+                      <Image src={newImage} roundedCircle style={{ width: '70px', height: '70px' }} />
+                    ) : (
+                      <FontAwesomeIcon icon={faImage} size="3x" />
+                    )}
                   </Col>
                 </Row>
               </Form.Group>
