@@ -27,12 +27,7 @@ const Header = () => {
           </Nav.Link>
           {isLoggedIn ? (
             <>
-              <Nav.Link as={NavLink} to="/add-recipe" activeClassName="active-link">
-                Add Recipe
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/view-recipes" activeClassName="active-link">
-                View Recipes
-              </Nav.Link>
+              
             </>
           ) : (
             <>

@@ -1,4 +1,3 @@
-// controllers/RecipeController.js
 const db = require("../models");
 const Recipe = db.Recipe;
 const Favorite = db.Favorite; // Import the Favorite model
@@ -33,20 +32,36 @@ exports.getRecipeById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// Update
+
+// Controller for updating a recipe
 exports.updateRecipe = async (req, res) => {
-  const { id } = req.params;
   try {
-    const updatedRecipe = await Recipe.update(req.body, {
-      where: {
-        RecipeID: id,
-      },
+    const { id } = req.params;
+    const { title, description, ingredients, instructions, cuisineType, image } = req.body;
+
+    // Check if the recipe exists
+    const recipe = await Recipe.findByPk(id);
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    // Update the recipe
+    await recipe.update({
+      Title: title,
+      Description: description,
+      Ingredients: ingredients,
+      Instructions: instructions,
+      CuisineType: cuisineType,
+      Image: image,
     });
-    res.json(updatedRecipe);
+
+    res.json({ message: 'Recipe updated successfully', recipe });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error updating recipe:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 exports.updateRecipeById = async (req, res) => {
   try {
     const recipe = await Recipe.findByPk(req.params.id);
@@ -129,15 +144,16 @@ exports.searchRecipes = async (req, res) => {
     const recipes = await Recipe.findAll({
       where: {
         [Op.or]: [
-          { Title: { [Op.iLike]: `%${keyword}%` } }, // Case-insensitive search
-          { Description: { [Op.iLike]: `%${keyword}%` } },
+          { Title: { [Op.iLike]: `%${keyword}%` } }, // Case-insensitive search in Title
+          { Description: { [Op.iLike]: `%${keyword}%` } }, // Case-insensitive search in Description
           // Add more fields to search if needed
         ],
       },
     });
     res.json(recipes);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error searching recipes:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 

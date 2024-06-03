@@ -6,11 +6,11 @@
 }
 
 .carousel-item {
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .carousel-background {
-  height: 100vh;
+  /* height: 100vh; */
   background-size: cover;
   background-position: center;
   display: flex;

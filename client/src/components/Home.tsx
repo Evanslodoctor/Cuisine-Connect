@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Carousel, Container, Row, Col, Button } from "react-bootstrap";
+import { Carousel, Container, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import SignupPage from "./SignupPage"; // Import your signup page component
-import Baselayout from "./Baselayout";
+import SignupPage from "./SignupPage";
+import About from "./About";
+//import "./Home.css"; // Import the custom CSS for Home
 
 const Home = () => {
   const navigate = useNavigate();
@@ -12,27 +13,24 @@ const Home = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      // If token exists, navigate to the dashboard
       navigate("/dashboard");
     } else {
-      // Otherwise, user is not logged in
       setLoggedIn(false);
     }
   }, [navigate]);
 
   return (
-    <Baselayout>
-      <Container fluid className="home-container">
-        {loggedIn ? (
-          // If user is logged in, redirect to dashboard
-          <SignupPage />
-        ) : (
-          // Otherwise, show the carousel
+    <Container fluid className="home-container">
+      {loggedIn ? (
+        <SignupPage />
+      ) : (
+        <>
           <Carousel
             controls={false}
             indicators={false}
             interval={3000}
             pause={false}
+            className="carousel-reduced-size"
           >
             <Carousel.Item>
               <div
@@ -83,9 +81,10 @@ const Home = () => {
               </div>
             </Carousel.Item>
           </Carousel>
-        )}
-      </Container>
-    </Baselayout>
+          <About /> {/* About section below the carousel */}
+        </>
+      )}
+    </Container>
   );
 };
 

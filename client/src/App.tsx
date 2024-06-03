@@ -13,8 +13,10 @@ import ViewRecipe from "./components/ViewRecipe";
 import AddRecipe from "./components/AddRecipe";
 import UploadImage from "./components/UploadImage";
 import UpdateRecipePage from "./components/UpdateRecipePage";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -25,46 +27,65 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle('dark-mode', darkMode);
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
-    <>
-      {/* <Header isLoggedIn={isLoggedIn} /> */}
-      <div className="p-0 m-0">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route
-            path="/login"
-            element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
-          />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route
-            path="/dashboard"
-            element={
-              isLoggedIn ? (
-                <UserDashboard isLoggedIn={isLoggedIn} />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/recipe/:recipeID"
-            element={<ViewRecipe isLoggedIn={isLoggedIn} />}
-          />
-        
-          <Route
-            path="/add-recipe"
-            element={isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/update-recipe"
-            element={isLoggedIn ? <UpdateRecipePage/> : <Navigate to="/login" />}
-          />
-            <Route path="/upload-image/:uniqueId" element={<UploadImage />} />
-        </Routes>
+    <div className="background-image">
+      <Header isLoggedIn={isLoggedIn} toggleDarkMode={toggleDarkMode} />
+      <div className="main-body-wrapper">
+        <div className="main-body">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/login"
+              element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
+            />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route
+              path="/dashboard"
+              element={
+                isLoggedIn ? (
+                  <UserDashboard isLoggedIn={isLoggedIn} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/recipe/:recipeID"
+              element={<ViewRecipe isLoggedIn={isLoggedIn} />}
+            />
+            <Route
+              path="/add-recipe"
+              element={
+                isLoggedIn ? <AddRecipe /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/update-recipe"
+              element={
+                isLoggedIn ? <UpdateRecipePage /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/upload-image/:uniqueId"
+              element={<UploadImage />}
+            />
+          </Routes>
+         
+     
+          </div>
+          
       </div>
-      {/* <Footer /> */}
-      </>
+      <Footer />
+    </div>
   );
 }
 

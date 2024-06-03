@@ -6,6 +6,7 @@ import { Container, Form, Button, Alert } from "react-bootstrap";
 const UploadImage = () => {
   const { uniqueId } = useParams();
   const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -13,13 +14,22 @@ const UploadImage = () => {
     setImage(e.target.files[0]);
   };
 
+  const handleUrlChange = (e) => {
+    setImageUrl(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
     const formData = new FormData();
-    formData.append("image", image);
     formData.append("uniqueId", uniqueId);
+
+    if (image) {
+      formData.append("image", image);
+    } else {
+      formData.append("imageUrl", imageUrl);
+    }
 
     try {
       const response = await axios.post(
@@ -54,7 +64,11 @@ const UploadImage = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="image">
           <Form.Label>Recipe Image</Form.Label>
-          <Form.Control type="file" onChange={handleImageChange} required />
+          <Form.Control type="file" onChange={handleImageChange} />
+        </Form.Group>
+        <Form.Group controlId="imageUrl">
+          <Form.Label>or Image URL</Form.Label>
+          <Form.Control type="text" onChange={handleUrlChange} />
         </Form.Group>
         <div className="text-center">
           <Button variant="primary" type="submit" className="mt-3">
