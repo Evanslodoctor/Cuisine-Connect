@@ -1,0 +1,21 @@
+#nav-link {
+  color: #157347;
+  transition-duration: 500;
+  border-radius: 0.4rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: larger;
+  font-weight: 400;
+}
+
+h4 {
+  color: #157347;
+}
+
+#nav-link:hover {
+  font-weight: 600;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}

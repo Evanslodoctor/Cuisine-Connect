@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Form, Button, Alert, Row, Col } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import Baselayout from "./Baselayout";
 
 const AddRecipe = () => {
   const navigate = useNavigate();
@@ -100,126 +101,134 @@ const AddRecipe = () => {
   };
 
   return (
-    <Container className="mt-5 add-recipe-container">
-      <h1 className="text-center">Add New Recipe</h1>
-      {error && <Alert variant="danger">{error}</Alert>}
-      {success && <Alert variant="success">{success}</Alert>}
-      <Form className="recipe_form" onSubmit={handleSubmit}>
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId="title">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId="mealType">
-              <Form.Label>Meal Type</Form.Label>
-              <Form.Control
-                as="select"
-                value={mealType}
-                onChange={(e) => setMealType(e.target.value)}
-              >
-                <option value="">Select a meal type</option>
-                {africanMeals.map((meal) => (
-                  <option key={meal} value={meal}>
-                    {meal}
-                  </option>
-                ))}
-              </Form.Control>
-              <Form.Control
-                type="text"
-                placeholder="Or enter a new meal type"
-                value={customMealType}
-                onChange={(e) => setCustomMealType(e.target.value)}
-                className="mt-2"
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId="dietaryTags">
-              <Form.Label>Dietary Tags</Form.Label>
-              <Form.Control
-                type="text"
-                value={dietaryTags}
-                onChange={(e) => setDietaryTags(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId="difficultyLevel">
-              <Form.Label>Difficulty Level</Form.Label>
-              <Form.Control
-                as="select"
-                value={difficultyLevel}
-                onChange={(e) => setDifficultyLevel(e.target.value)}
-                required
-              >
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </Form.Control>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId="description">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                style={{ width: "100%" }}
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId="ingredients">
-              <Form.Label>Ingredients (one per line)</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={ingredients}
-                onChange={(e) => setIngredients(e.target.value)}
-                required
-                style={{ width: "100%" }}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <Form.Group controlId="instructions">
-              <Form.Label>Instructions</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={instructions}
-                onChange={(e) => setInstructions(e.target.value)}
-                required
-                style={{ width: "100%" }}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <div className="text-center">
-          <Button variant="primary" type="submit" className="mt-3">
-            Next
-          </Button>
-        </div>
-      </Form>
-    </Container>
+    <Baselayout>
+      <Container className="mt-5 bg-light rounded-4 p-4">
+        <h1 className="text-center">Add New Recipe</h1>
+        {/* <h1 className="text-center">Add New Recipe</h1> */}
+        {error && <Alert variant="danger">{error}</Alert>}
+        {success && <Alert variant="success">{success}</Alert>}
+        <Form onSubmit={handleSubmit}>
+          <Row className="align-items-center">
+            <Col>
+              <Form.Group controlId="title">
+                <Form.Label className="fw-semibold">Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={title}
+                  className="w-50"
+                  placeholder="e.g; Egusi Soup"
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            {/* <Col md={6}>
+              <Form.Group controlId="mealType">
+                <Form.Label className="fw-semibold">Meal Type</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={mealType}
+                  onChange={(e) => setMealType(e.target.value)}
+                >
+                  <option value="">Select a meal type</option>
+                  {africanMeals.map((meal) => (
+                    <option key={meal} value={meal}>
+                      {meal}
+                    </option>
+                  ))}
+                </Form.Control>
+                <Form.Control
+                  type="text"
+                  placeholder="Or enter a new meal type"
+                  value={customMealType}
+                  onChange={(e) => setCustomMealType(e.target.value)}
+                  className="mt-2"
+                />
+              </Form.Group>
+            </Col> */}
+          </Row>
+          <Row>
+            <Col md={6}>
+              <Form.Group controlId="dietaryTags">
+                <Form.Label className="fw-semibold">Dietary Tags</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={dietaryTags}
+                  placeholder="e.g; Vegan, Gluten free"
+                  onChange={(e) => setDietaryTags(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group controlId="difficultyLevel">
+                <Form.Label className="fw-semibold">Difficulty Level</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={difficultyLevel}
+                  onChange={(e) => setDifficultyLevel(e.target.value)}
+                  required
+                >
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </Form.Control>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <Form.Group controlId="description">
+                <Form.Label className="fw-semibold">Description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Short description of the dish"
+                  required
+                  style={{ width: "100%" }}
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group controlId="ingredients">
+                <Form.Label className="fw-semibold">Ingredients (one per line)</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={ingredients}
+                  onChange={(e) => setIngredients(e.target.value)}
+                  required
+                  style={{ width: "100%" }}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <Form.Group controlId="instructions">
+                <Form.Label className="fw-semibold">Instructions</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={instructions}
+                  onChange={(e) => setInstructions(e.target.value)}
+                  placeholder="Step by step instructions"
+                  required
+                  style={{ width: "100%" }}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <div className="text-center">
+            <Button variant="primary" type="submit" className="mt-3">
+              Next
+            </Button>
+          </div>
+        </Form>
+      </Container>
+    </Baselayout>
   );
 };
 

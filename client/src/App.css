@@ -15,6 +15,7 @@
   margin: 0;
   padding: 0;
   border: 0;
+  box-sizing: border-box;
 }
 
 a {
@@ -172,14 +173,13 @@ button:focus-visible {
 }
 
 .viewrecipe {
-  background-color: rgba(241, 238, 238, 0.9);
   padding: 20px;
   text-align: center;
 }
 
 .viewrecipe h2,
 .viewrecipe h3 {
-  color: blue;
+  color: #157347;
 }
 
 .form-group {

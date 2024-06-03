@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Button, Form, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Baselayout from "./Baselayout";
 //import "./ViewRecipe.css"; // Ensure this path is correct
 
 const ViewRecipe = () => {
@@ -99,35 +100,38 @@ const ViewRecipe = () => {
   };
 
   return (
-    <Container className="mt-5 view-recipe">
-      {recipe ? (
-        <Row>
-          <Col lg={6}>
-            <div className="recipe-image" style={{ backgroundImage: `url(${recipe.Image})` }}>
-              <div className="recipe-details">
+    <Baselayout>
+      <Container className="mt-5 viewrecipe">
+        {recipe ? (
+          <>
+            <Row className="gap-3">
+              <Col className="bg-light p-3 rounded-3 col-sm-4">
+                <Image src={recipe.Image ? recipe.Image : ("/background/slide2.jpg")} className="w-75 h-50 m-3 rounded-4"/>
                 <h2>{recipe.Title}</h2>
-                <p>{recipe.CuisineType} - {recipe.Time}</p>
-                <p>Dietary Tags: {recipe.DietaryTags}</p>
-                <p>Difficulty Level: {recipe.DifficultyLevel}</p>
-                <p>Number of Ratings: {recipe.NumberOfRatings}</p>
-              </div>
-            </div>
-          </Col>
-          <Col lg={6}>
-            <div className="recipe-info">
-              <h3>Ingredients:</h3>
-              {Array.isArray(recipe.Ingredients) ? (
-                recipe.Ingredients.map((ingredient, index) => (
-                  <p key={index}>{ingredient}</p>
-                ))
-              ) : (
-                <p>{recipe.Ingredients}</p>
-              )}
-              <h3>Instructions:</h3>
-              {recipe.Instructions.split("\n").map((instruction, index) => (
-                <p key={index}>{instruction}</p>
-              ))}
-              <div className="recipe-actions">
+                <div className="text-left">
+                  <p>Dietary Tags: {recipe.DietaryTags}</p>
+                  <p>Difficulty Level: {recipe.DifficultyLevel}</p>
+                  <p>Average Rating: {recipe.AverageRating}</p>
+                  <p>Number of Ratings: {recipe.NumberOfRatings}</p>
+                </div>
+              </Col>
+              <Col className="bg-light rounded-3 p-3">
+                <h3>Description</h3>
+                <p>{recipe.Description}</p>
+                <h3>Ingredients:</h3>
+                {Array.isArray(recipe.Ingredients) ? (
+                  recipe.Ingredients.map((ingredient, index) => (
+                    <p key={index}>{ingredient}</p>
+                  ))
+                ) : (
+                  <p>{recipe.Ingredients}</p>
+                )}
+
+                <h3>Instructions:</h3>
+                {recipe.Instructions.split("\n").map((instruction, index) => (
+                  <p key={index}>{instruction}</p>
+                ))}
+
                 <Form.Group>
                   <Form.Label>Rate this recipe:</Form.Label>
                   <Form.Check
@@ -147,14 +151,14 @@ const ViewRecipe = () => {
                     Add to Favorites
                   </Button>
                 )}
-              </div>
-            </div>
-          </Col>
-        </Row>
-      ) : (
-        <p>Loading recipe...</p>
-      )}
-    </Container>
+              </Col>
+            </Row>
+          </>
+        ) : (
+          <p>Loading recipe...</p>
+        )}
+      </Container>
+    </Baselayout>
   );
 };
 

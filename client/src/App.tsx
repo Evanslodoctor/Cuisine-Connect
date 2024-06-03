@@ -37,7 +37,6 @@ function App() {
 
   return (
     <div className="background-image">
-      <Header isLoggedIn={isLoggedIn} toggleDarkMode={toggleDarkMode} />
       <div className="main-body-wrapper">
         <div className="main-body">
           <Routes>
@@ -84,7 +83,6 @@ function App() {
           </div>
           
       </div>
-      <Footer />
     </div>
   );
 }
