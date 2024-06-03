@@ -26,9 +26,9 @@ function App() {
   }, []);
 
   return (
-    <div className="background-image">
-      <Header isLoggedIn={isLoggedIn} />
-      <div className="main-body">
+    <>
+      {/* <Header isLoggedIn={isLoggedIn} /> */}
+      <div className="p-0 m-0">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -63,9 +63,8 @@ function App() {
             <Route path="/upload-image/:uniqueId" element={<UploadImage />} />
         </Routes>
       </div>
-      <Footer />
-    </div>
-    
+      {/* <Footer /> */}
+      </>
   );
 }
 

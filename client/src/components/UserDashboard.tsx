@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Baselayout from './Baselayout';
 
 const UserDashboard = ({ isLoggedIn }) => {
   const [popularRecipes, setPopularRecipes] = useState([]);
@@ -45,39 +46,41 @@ const UserDashboard = ({ isLoggedIn }) => {
   };
 
   return (
-    <Container className="mt-5 darshbord">
-      <Row>
-        <Col>
-          <h2>User Dashboard</h2>
-          <Form>
-            <Form.Group>
-              <Form.Control
-                type="text"
-                placeholder="Search recipes by name or keywords"
-                value={searchKeyword}
-                onChange={handleSearch}
-              />
-            </Form.Group>
-          </Form>
-        </Col>
-        <Col className="text-end">
-          {/* <Button variant="danger" onClick={handleLogout}>Logout</Button> */}
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        {popularRecipes.map(recipe => (
-          <Col key={recipe.RecipeID} xs={12} md={6} lg={4}>
-            <Card className="mb-3">
-              <Card.Body>
-                <Card.Title>{recipe.Title}</Card.Title>
-                <Card.Text>Average Rating: {recipe.AverageRating}</Card.Text>
-                <Button variant="primary" onClick={() => navigate(`/recipe/${recipe.RecipeID}`)}>View Recipe</Button>
-              </Card.Body>
-            </Card>
+    <Baselayout>
+      <Container className="mt-5 darshbord">
+        <Row>
+          <Col>
+            <h2>User Dashboard</h2>
+            <Form>
+              <Form.Group>
+                <Form.Control
+                  type="text"
+                  placeholder="Search recipes by name or keywords"
+                  value={searchKeyword}
+                  onChange={handleSearch}
+                />
+              </Form.Group>
+            </Form>
           </Col>
-        ))}
-      </Row>
-    </Container>
+          <Col className="text-end">
+            {/* <Button variant="danger" onClick={handleLogout}>Logout</Button> */}
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          {popularRecipes.map(recipe => (
+            <Col key={recipe.RecipeID} xs={12} md={6} lg={4}>
+              <Card className="mb-3">
+                <Card.Body>
+                  <Card.Title>{recipe.Title}</Card.Title>
+                  <Card.Text>Average Rating: {recipe.AverageRating}</Card.Text>
+                  <Button variant="primary" onClick={() => navigate(`/recipe/${recipe.RecipeID}`)}>View Recipe</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </Baselayout>
   );
 }
 
