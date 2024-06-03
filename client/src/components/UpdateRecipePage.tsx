@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Container, Form, Button, Row, Col, Alert, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
+import Baselayout from "./Baselayout";
+import { useNavigate, Link } from 'react-router-dom';
 
 const UpdateRecipePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -17,6 +19,9 @@ const UpdateRecipePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchRecipes();
@@ -79,126 +84,167 @@ const UpdateRecipePage = () => {
     fetchRecipeDetails(recipeID);
   };
 
+  const toggleSidebar = () => {
+    setSidebarExpanded(!sidebarExpanded);
+  };
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  useEffect(() => {
+    document.body.classList.toggle('dark-mode', darkMode);
+  }, [darkMode]);
+
   return (
-    <Container className="mt-5">
-      <h1 className="text-center">Update Recipe</h1>
-      {error && <Alert variant="danger">{error}</Alert>}
-      {successMessage && <Alert variant="success">{successMessage}</Alert>}
-      <Form.Group>
-        <Form.Label>Search or Add Recipe Title</Form.Label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search or Add Recipe Title"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Select Recipe to Update</Form.Label>
-        <select
-          className="form-control"
-          onChange={(e) => handleRecipeSelection(e.target.value)}
-          value={selectedRecipe}
-        >
-          <option value="">Select Recipe</option>
-          {filteredRecipes.map((recipe) => (
-            <option key={recipe.RecipeID} value={recipe.RecipeID}>{recipe.Title}</option>
-          ))}
-        </select>
-      </Form.Group>
-      {selectedRecipe && (
-        <Form>
-          <Row>
-            <Col md={6}>
-              <Form.Group controlId="formTitle">
-                <Form.Label>Title</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Title"
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                />
-              </Form.Group>
+    <Baselayout>
+      <Container className={`vh-100 d-flex flex-column justify-content-center ${darkMode ? 'dark' : 'light'}`}>
+        <Row>
+          {sidebarExpanded && (
+            <Col md={3}>
+              <div className="sidebar">
+                <h5>Menu</h5>
+                <ul>
+                  <li><Link to="/settings">Settings</Link></li>
+                  <li><Link to="/update-recipe">Update Recipe</Link></li>
+                  <li><Link to="/add-recipe">Add Recipe</Link></li>
+                </ul>
+                <h5>Viewing Mode</h5>
+                <Button variant="outline-dark" onClick={toggleDarkMode}>
+                  {darkMode ? 'Light Mode' : 'Dark Mode'}
+                </Button>
+              </div>
             </Col>
-            <Col md={6}>
-              <Form.Group controlId="formCuisineType">
-                <Form.Label>Cuisine Type</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Cuisine Type"
-                  value={newCuisineType}
-                  onChange={(e) => setNewCuisineType(e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={6}>
-              <Form.Group controlId="formDescription">
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  placeholder="Enter Description"
-                  value={newDescription}
-                  onChange={(e) => setNewDescription(e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Group controlId="formIngredients">
-                <Form.Label>Ingredients</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  placeholder="Enter Ingredients"
-                  value={newIngredients}
-                  onChange={(e) => setNewIngredients(e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={6}>
-              <Form.Group controlId="formInstructions">
-                <Form.Label>Instructions</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  placeholder="Enter Instructions"
-                  value={newInstructions}
-                  onChange={(e) => setNewInstructions(e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Group controlId="formImage">
-                <Form.Label>Image</Form.Label>
+          )}
+          <Col xs={sidebarExpanded ? 9 : 12}>
+            <Row>
+              <Col className="text-center mb-4">
+                <Button variant="outline-dark" onClick={toggleSidebar} className={`menu-button ${darkMode ? 'dark' : 'light'}`}>
+                  {sidebarExpanded ? 'Close' : 'Menu'}
+                </Button>
+              </Col>
+            </Row>
+            <h1 className="text-center">Update Recipe</h1>
+            {error && <Alert variant="danger">{error}</Alert>}
+            {successMessage && <Alert variant="success">{successMessage}</Alert>}
+            <Form.Group>
+              <Form.Label>Search or Add Recipe Title</Form.Label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search or Add Recipe Title"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Select Recipe to Update</Form.Label>
+              <select
+                className="form-control"
+                onChange={(e) => handleRecipeSelection(e.target.value)}
+                value={selectedRecipe}
+              >
+                <option value="">Select Recipe</option>
+                {filteredRecipes.map((recipe) => (
+                  <option key={recipe.RecipeID} value={recipe.RecipeID}>{recipe.Title}</option>
+                ))}
+              </select>
+            </Form.Group>
+            {selectedRecipe && (
+              <Form>
                 <Row>
-                  <Col sm={8}>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Image URL"
-                      value={newImage}
-                      onChange={(e) => setNewImage(e.target.value)}
-                    />
+                  <Col md={6}>
+                    <Form.Group controlId="formTitle">
+                      <Form.Label>Title</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Title"
+                        value={newTitle}
+                        onChange={(e) => setNewTitle(e.target.value)}
+                      />
+                    </Form.Group>
                   </Col>
-                  <Col sm={4} className="d-flex align-items-center justify-content-center">
-                    {newImage ? (
-                      <Image src={newImage} roundedCircle style={{ width: '70px', height: '70px' }} />
-                    ) : (
-                      <FontAwesomeIcon icon={faImage} size="3x" />
-                    )}
+                  <Col md={6}>
+                    <Form.Group controlId="formCuisineType">
+                      <Form.Label>Cuisine Type</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Cuisine Type"
+                        value={newCuisineType}
+                        onChange={(e) => setNewCuisineType(e.target.value)}
+                      />
+                    </Form.Group>
                   </Col>
                 </Row>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Button variant="primary" onClick={handleUpdate}>Update Recipe</Button>
-        </Form>
-      )}
-    </Container>
+                <Row>
+                  <Col md={6}>
+                    <Form.Group controlId="formDescription">
+                      <Form.Label>Description</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        placeholder="Enter Description"
+                        value={newDescription}
+                        onChange={(e) => setNewDescription(e.target.value)}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="formIngredients">
+                      <Form.Label>Ingredients</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        placeholder="Enter Ingredients"
+                        value={newIngredients}
+                        onChange={(e) => setNewIngredients(e.target.value)}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <Form.Group controlId="formInstructions">
+                      <Form.Label>Instructions</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        placeholder="Enter Instructions"
+                        value={newInstructions}
+                        onChange={(e) => setNewInstructions(e.target.value)}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="formImage">
+                      <Form.Label>Image</Form.Label>
+                      <Row>
+                        <Col sm={8}>
+                          <Form.Control
+                            type="text"
+                            placeholder="Enter Image URL"
+                            value={newImage}
+                            onChange={(e) => setNewImage(e.target.value)}
+                          />
+                        </Col>
+                        <Col sm={4} className="d-flex align-items-center justify-content-center">
+                          {newImage ? (
+                            <Image src={newImage} roundedCircle style={{ width: '70px', height: '70px' }} />
+                          ) : (
+                            <FontAwesomeIcon icon={faImage} size="3x" />
+                          )}
+                        </Col>
+                      </Row>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Button variant="primary" onClick={handleUpdate}>Update Recipe</Button>
+              </Form>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </Baselayout>
   );
 };
 
