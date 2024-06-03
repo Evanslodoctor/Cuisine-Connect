@@ -6,7 +6,6 @@ import Footer from './Footer';
 
 function Baselayout({children}: any) {
   const navigate = useNavigate();
-  const [searchKeyword, setSearchKeyword] = useState('');
 
   const isLoggedIn = localStorage.getItem("token") !== null;
   const handleLogout = () => {
@@ -16,13 +15,9 @@ function Baselayout({children}: any) {
     navigate("/login");
   };
 
-  const handleSearch = (e) => {
-    setSearchKeyword(e.target.value);
-  };
-
 
   return (
-    <div className="p-0 m-0">
+    <div className="p-0 m-0" style={{minWidth:  `100vw`, minHeight: `100vh`}}>
       <Navbar expand="sm" className='bg-transparent w-100'>
         <Container>
           <Navbar.Brand className="d-flex align-items-center">
@@ -83,7 +78,7 @@ function Baselayout({children}: any) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container fluid className='p-0 m-0'>
+      <Container fluid className='p-0 m-0 mb-3'>
         {children}
       </Container>
       <Footer/>

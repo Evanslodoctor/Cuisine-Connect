@@ -106,14 +106,22 @@ const ViewRecipe = () => {
           <>
             <Row className="gap-3">
               <Col className="bg-light p-3 rounded-3 col-sm-4">
-                <Image src={recipe.Image ? recipe.Image : ("/background/slide2.jpg")} className="w-75 h-50 m-3 rounded-4"/>
-                <h2>{recipe.Title}</h2>
-                <div className="text-left">
+                <div className="d-flex flex-column align-items-center">
+                  <Image src={recipe.Image ? recipe.Image : ("/background/slide2.jpg")} className="w-75 h-50 m-3  rounded-4"/>
+                  <h2 className="text-center">{recipe.Title}</h2>
+                </div>
+                <div className="mx-5 my-4">
                   <p>Dietary Tags: {recipe.DietaryTags}</p>
                   <p>Difficulty Level: {recipe.DifficultyLevel}</p>
-                  <p>Average Rating: {recipe.AverageRating}</p>
-                  <p>Number of Ratings: {recipe.NumberOfRatings}</p>
                 </div>
+                <Row className="mx-5 my-4">
+                  <Col>
+                    <p>Average: {Math.round(recipe.AverageRating * 10) / 10} |</p>
+                  </Col>
+                  <Col>
+                    <p>| Ratings: {recipe.NumberOfRatings}</p>
+                  </Col>
+                </Row>
               </Col>
               <Col className="bg-light rounded-3 p-3">
                 <h3>Description</h3>
