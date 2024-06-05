@@ -66,7 +66,7 @@ const AddRecipe = () => {
 
     try {
       const response = await axios.post(
-        "cuisine-connect-production.up.railway.app/api/recipes",
+        "http://cuisine-connect-production.up.railway.app/api/recipes",
         {
           Title: title,
           Description: description,

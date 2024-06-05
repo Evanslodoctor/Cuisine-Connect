@@ -19,7 +19,7 @@ const SignupPage = () => {
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post("cuisine-connect-production.up.railway.app/api/users/", {
+      const response = await axios.post("http://cuisine-connect-production.up.railway.app/api/users/", {
         username,
         email,
         password,

@@ -20,7 +20,7 @@ const LoginPage: React.FC = ({ setIsLoggedIn }: any) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("cuisine-connect-production.up.railway.app/api/login", {
+      const response = await axios.post("http://cuisine-connect-production.up.railway.app/api/login", {
         username,
         password,
       });

@@ -25,7 +25,7 @@ const ViewRecipe = () => {
         }
 
         const response = await axios.get(
-          `http://localhost:3000/api/recipes/${recipeID}`,
+          `http://cuisine-connect-production.up.railway.app/api/recipes/${recipeID}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ const ViewRecipe = () => {
       }
 
       await axios.post(
-        `http://localhost:3000/api/recipes/${recipeID}/rate`,
+        `http://cuisine-connect-production.up.railway.app/api/recipes/${recipeID}/rate`,
         { rating: value },
         {
           headers: {
@@ -60,7 +60,7 @@ const ViewRecipe = () => {
       );
 
       const response = await axios.get(
-        `http://localhost:3000/api/recipes/${recipeID}`,
+        `http://cuisine-connect-production.up.railway.app/api/recipes/${recipeID}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -82,7 +82,7 @@ const ViewRecipe = () => {
       }
 
       await axios.post(
-        `cuisine-connect-production.up.railway.app/api/recipes/${recipeID}/favorite`,
+        `http://cuisine-connect-production.up.railway.app/api/recipes/${recipeID}/favorite`,
         {},
         {
           headers: {

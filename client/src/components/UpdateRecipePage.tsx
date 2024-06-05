@@ -37,7 +37,7 @@ const UpdateRecipePage = () => {
 
   const fetchRecipes = async () => {
     try {
-      const response = await axios.get('cuisine-connect-production.up.railway.app/api/recipes');
+      const response = await axios.get('http://cuisine-connect-production.up.railway.app/api/recipes');
       setRecipes(response.data);
     } catch (error) {
       setError('Error fetching recipes');
@@ -47,7 +47,7 @@ const UpdateRecipePage = () => {
 
   const fetchRecipeDetails = async (recipeID) => {
     try {
-      const response = await axios.get(`cuisine-connect-production.up.railway.app/recipes/${recipeID}`);
+      const response = await axios.get(`http://cuisine-connect-production.up.railway.app/recipes/${recipeID}`);
       const recipe = response.data;
       setNewTitle(recipe.Title);
       setNewDescription(recipe.Description);
@@ -63,7 +63,7 @@ const UpdateRecipePage = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(`cuisine-connect-production.up.railway.app/api/recipes/${selectedRecipe}`, {
+      const response = await axios.put(`http://cuisine-connect-production.up.railway.app/api/recipes/${selectedRecipe}`, {
         Title: newTitle,
         Description: newDescription,
         Ingredients: newIngredients,
