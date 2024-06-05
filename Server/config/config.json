@@ -18,6 +18,6 @@
     "password": "CxqRWGWdbCNZUGhSaMjittvlCBDwepkD",
     "database": "CuisineConnectDB",
     "host": "monorail.proxy.rlwy.net",
-    "dialect": "mysql"
+    "dialect": "mysql://root:CxqRWGWdbCNZUGhSaMjittvlCBDwepkD@mysql.railway.internal:3306/railway"
   }
 }

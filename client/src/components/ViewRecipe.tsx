@@ -82,7 +82,7 @@ const ViewRecipe = () => {
       }
 
       await axios.post(
-        `http://localhost:3000/api/recipes/${recipeID}/favorite`,
+        `cuisine-connect-production.up.railway.app/api/recipes/${recipeID}/favorite`,
         {},
         {
           headers: {

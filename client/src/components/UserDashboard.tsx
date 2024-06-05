@@ -40,7 +40,7 @@ const UserDashboard = ({ isLoggedIn }) => {
 
   const fetchPopularRecipes = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/recipes/');
+      const response = await axios.get('cuisine-connect-production.up.railway.app/api/recipes/');
       // Sort recipes by average rating in descending order
       const sortedRecipes = response.data.sort((a, b) => b.AverageRating - a.AverageRating);
       setPopularRecipes(sortedRecipes);
