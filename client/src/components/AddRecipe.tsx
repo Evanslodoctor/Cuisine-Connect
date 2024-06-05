@@ -16,7 +16,7 @@ const AddRecipe = () => {
   const [dietaryTags, setDietaryTags] = useState("");
   const [difficultyLevel, setDifficultyLevel] = useState("easy");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState(""); 
 
   const africanMeals = [
     "Jollof Rice, Nigeria", "Bunny Chow, South Africa", "Tagine, Morocco", "Injera, Ethiopia",
