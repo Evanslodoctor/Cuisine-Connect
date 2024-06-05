@@ -37,7 +37,7 @@ const UploadImage = () => {
 
     try {
       const response = await axios.post(
-        "http://cuisine-connect-production.up.railway.app/api/recipes/upload-image",
+        "http://localhost:3000/api/recipes/upload-image",
         formData,
         {
           headers: {
